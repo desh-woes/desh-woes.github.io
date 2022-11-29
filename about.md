@@ -3,13 +3,11 @@ layout: page
 title: About
 ---
 
-Hi there, I'm Oluwarotimi and I generally enjoy putting down my thoughts. Over the past 2-3 years however, I have slacked at this, mostly because I don't see much value in adding content to the already saturated internet. 
-
-That being said, I am still going ahead with this, because my inability to see value in it does not override my interest in sharing my thoughts in true blogger fashion. So welcome here and hope you get some value from being here. 
+Hi there, I'm Oluwarotimi and I generally enjoy putting down my thoughts! Welcome to my blog :). Please note that nothing on this site is reflective of my employer or anyone other than myself. 
 
 ## [](#about-me)About me
 
-I'm an average height Nigerian man, with dreadlocs. I work as a software engineer and I enjoy playing chess, listening to music, and being in bed. 
+I'm a Nigerian man, with dreadlocs. I work as a software engineer and I enjoy playing chess, listening to music, and being in bed. 
 
 ## [](#about-this-blog)About this page
 
