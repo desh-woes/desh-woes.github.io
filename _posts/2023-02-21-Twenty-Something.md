@@ -1,5 +1,5 @@
 ---
-title: 20 Something
+title: Twenty Something
 published: true
 ---
 
