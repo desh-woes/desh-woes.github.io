@@ -3,7 +3,7 @@ title: Twenty Something
 published: true
 ---
 
-I recently came across a story on Instagram that really resonated. It is an excerpt from a larger piece I assume but I have been unable to find the main source (If you know the source, feel free to ping me so I link it here). But the excerpt goes like; 
+I recently came across a story on Instagram that really resonated. It is an excerpt from a larger [piece](https://nicoles.substack.com/p/am-i-wasting-my-20s) by Nicole. And it goes like; 
 
 ```python
 """
