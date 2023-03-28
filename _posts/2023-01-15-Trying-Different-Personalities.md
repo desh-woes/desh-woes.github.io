@@ -1,6 +1,6 @@
 ---
 title: Trying Different Personalities
-published: true
+published: false
 ---
 
 I was having a conversation with a mentor at work, and after work-specific discussions, I asked for feedback on my performance. Specifically, I asked, "What could I be doing better?" My mentor thought about this question briefly and gave a positive review, saying I was doing well. However, they went on and noted that one thing I could do was try out different personalities. This response was unique and fascinating, probably because it was the last thing I expected to hear in a professional setting since I was expecting more work-oriented feedback. Maybe something like "resolve bugs faster" or "Pick up more tasks", something that would illustrate a deficit in my current performance. 
