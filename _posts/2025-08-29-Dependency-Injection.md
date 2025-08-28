@@ -44,8 +44,8 @@ For example, in Kotlin, the `addTwoNumbers` function depends on `number1` and `n
 
 The function cannot be executed without these two numbers being passed in as a function call.
 
-In software, the patterns used in delivering program dependencies shown above would largely affect the modularity and composability of such a program. 
+The patterns used to deliver a program's dependencies, as shown above, largely affect its modularity and composability. I've come to learn that well-designed systems with dependency injection are made up of loosely coupled parts that are easy to test and maintain.
 
-Okay, I think this is a good place to pause. I essentially explored dependencies in a software program’s context. While writing this, I gained even more clarity on the different ways dependencies are delivered in a program, the single-threaded and single-process nature of dependency injection patterns and even runtime vs compile-time considerations for doing dependency injection.
+This feels like a good place to pause. We've explored dependencies in a software program's context. While writing this, I gained even more clarity on the different ways dependencies are delivered, the single-threaded and single-process nature of DI patterns, and even runtime vs. compile-time considerations for DI frameworks.
 
-I might explore these in a later post.
+I might explore these topics in a later post. I should. :)
