@@ -1,5 +1,5 @@
 ---
-title: Dependency Injection: A Core Concept
+title: Dependency Injection - A Core Concept
 published: true
 ---
 
