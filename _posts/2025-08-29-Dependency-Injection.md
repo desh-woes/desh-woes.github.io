@@ -15,19 +15,19 @@ In object-oriented programming, a class often relies on other classes to functio
 
 For example, in a Java program, an `Adder` class might need two numbers to perform its calculation. Instead of creating those numbers internally, we can design the class to receive them through its constructor.
 
-    ```java
-    public class Adder {
-        // These are the class dependencies (member variables)
-        private int number1;
-        private int number2;
+```java
+public class Adder {
+    // These are the class dependencies (member variables)
+    private int number1;
+    private int number2;
 
-        // The constructor is used to "inject" the dependencies
-        public Adder(int number1, int number2) {
-            this.number1 = number1;
-            this.number2 = number2;
-        }
+    // The constructor is used to "inject" the dependencies
+    public Adder(int number1, int number2) {
+        this.number1 = number1;
+        this.number2 = number2;
     }
-    ```
+}
+```
 
 In this case, `number1` and `number2` are dependencies of the `Adder` object because the object cannot be instantiated without them being "injected" through its constructor.
 
@@ -36,11 +36,11 @@ In this case, `number1` and `number2` are dependencies of the `Adder` object bec
 In functional programming, a function's dependencies are its parameters. The function is designed to be pure, meaning its output is determined solely by the inputs it receives.
 For example, in Kotlin, the `addTwoNumbers` function depends on `number1` and `number2` to perform its calculation.
 
-    ```java
-    fun addTwoNumbers(number1: Int, number2: Int): Int {
-        return number1 + number2
-    }
-    ```
+```java
+fun addTwoNumbers(number1: Int, number2: Int): Int {
+    return number1 + number2
+}
+```
 
 The function cannot be executed without these two numbers being passed in as a function call.
 
