@@ -1,6 +1,6 @@
 ---
 title: Dependency Injection: A Core Concept
-published: true
+published: false
 ---
 
 If we've ever chatted about software design, you've likely heard me rave about Dependency Injection (DI). For those who haven't, I am here to share the lore.
