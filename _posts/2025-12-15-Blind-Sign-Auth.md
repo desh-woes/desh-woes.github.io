@@ -1,5 +1,5 @@
 ---
-title: Blind Signing: The Digital Equivalent of Carbon Paper
+title: Blind Signing - The Digital Equivalent of Carbon Paper
 published: true
 ---
 
