@@ -275,3 +275,76 @@ a:active, a:focus {
 .is-fullwidth {
     width: 100%;
 }
+
+/* --- Hacker Theme Music Grid --- */
+.music-grid {
+  display: grid;
+  clear: both; /* Add this line */
+  /* Adjust minmax to 250px to allow more items on medium screens */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin: 2rem 0;
+  align-items: start;
+}
+
+.music-card {
+  transition: all 0.3s ease;
+  width: 100%;
+  line-height: 0; /* Prevents tiny gaps at bottom of iframes */
+}
+
+.music-card:hover {
+  transform: translateY(-8px);
+  filter: drop-shadow(0 0 10px rgba(181, 232, 83, 0.2));
+}
+
+/* Updated Text Card to match Hacker theme */
+.music-text-card {
+  padding: 20px;
+  /* Deep black background with slight transparency */
+  background: rgba(0, 0, 0, 0.5); 
+  /* Dashed border to match your <header> */
+  border: 1px dashed #b5e853; 
+  border-radius: 4px; /* Sharper corners fit the terminal look better */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.music-text-card h3 {
+  margin-top: 0;
+  color: #b5e853; /* Conifer Green */
+  font-size: 1.2rem;
+}
+
+/* --- The "Wrap Around" Logic --- */
+.music-float-left {
+  float: left;
+  margin: 0 20px 20px 0;
+  max-width: 320px;
+}
+
+.music-float-right {
+  float: right;
+  margin: 0 0 20px 20px;
+  max-width: 320px;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 700px) {
+  .music-grid {
+    grid-template-columns: 1fr; /* Stack everything */
+    gap: 20px;
+  }
+  
+  .music-float-left, 
+  .music-float-right {
+    float: none;      /* Stop wrapping on mobile */
+    max-width: 100%;  /* Full width player */
+    margin: 0 0 20px 0;
+  }
+  
+  .music-text-card {
+    border-style: solid; /* Solid feels more stable on mobile */
+  }
+}
