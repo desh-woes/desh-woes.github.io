@@ -2,7 +2,7 @@
 <html>
 {% include head.html %}
 
-<body>
+<body class="theme-modern">
   <div id="wrapper">
     {% include header.html %}
     <div class="container">
@@ -33,6 +33,8 @@
     {% endif %}
   </div>
   {% endif %} {% include footer.html %}
+
+  {% include theme-switcher.html %}
 
   {% if site.google_analytics %}
     {% include analytics.html %}

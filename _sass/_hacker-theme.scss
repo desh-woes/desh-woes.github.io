@@ -1,0 +1,251 @@
+/*
+   Original Hacker Theme Styles
+   Applied when body has .theme-hacker class
+*/
+
+body.theme-hacker {
+  background: #151515 url("../assets/bkg.png") 0 0;
+  color: #eaeaea;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+
+  .container {
+    width: 90%;
+    max-width: 1000px;
+  }
+
+  header {
+    background: rgba(0, 0, 0, 0.1);
+    border-bottom: 1px dashed #b5e853;
+    padding: 20px;
+    margin: 0 0 40px 0;
+    position: static;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  header > div {
+    max-width: 1000px;
+    padding: 0;
+  }
+
+  header h1 {
+    font-size: 24px;
+    line-height: 1.5;
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    color: #b5e853;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+                 0 0 5px rgba(181, 232, 83, 0.1),
+                 0 0 10px rgba(181, 232, 83, 0.1);
+    letter-spacing: -1px;
+  }
+
+  .header-links {
+    text-align: center;
+  }
+
+  .header-link h2 {
+    font-size: 18px;
+    font-weight: 300;
+    color: #666;
+    margin: 0;
+  }
+
+  .header-link h2:hover {
+    color: #b5e853;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    color: #b5e853;
+    letter-spacing: -0.03em;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+                 0 0 5px rgba(181, 232, 83, 0.1),
+                 0 0 10px rgba(181, 232, 83, 0.1);
+  }
+
+  #main_content h1 {
+    font-size: 30px;
+  }
+
+  #main_content h2 {
+    font-size: 24px;
+  }
+
+  #main_content h3 {
+    font-size: 18px;
+  }
+
+  ul li {
+    list-style-image: url('../assets/bullet.png');
+    padding-left: 0;
+  }
+
+  ul li::before {
+    display: none;
+  }
+
+  blockquote {
+    color: #aaa;
+    padding-left: 10px;
+    border-left: 1px dotted #666;
+    background: transparent;
+    border-radius: 0;
+    font-style: normal;
+  }
+
+  pre {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 10px;
+    font-size: 16px;
+    color: #b5e853;
+    border-radius: 2px;
+    box-shadow: none;
+  }
+
+  code.highlighter-rouge {
+    background: rgba(0,0,0,0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0px 3px;
+    margin: 0px -3px;
+    color: #aa759f;
+    border-radius: 2px;
+    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  }
+
+  table {
+    width: 100%;
+    margin: 0 0 20px 0;
+    border-collapse: separate;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  th {
+    text-align: left;
+    border-bottom: 1px dashed #b5e853;
+    padding: 5px 10px;
+    background: transparent;
+    color: #eaeaea;
+    font-weight: normal;
+  }
+
+  td {
+    padding: 5px 10px;
+    border-bottom: none;
+  }
+
+  tr:hover {
+    background: transparent;
+  }
+
+  hr {
+    height: 0;
+    border: 0;
+    border-bottom: 1px dashed #b5e853;
+    color: #b5e853;
+    margin: 20px 0;
+  }
+
+  a {
+    color: #63c0f5;
+    text-shadow: 0 0 5px rgba(104, 182, 255, 0.5);
+    border-bottom: none;
+  }
+
+  a:hover {
+    color: #63c0f5;
+    border-bottom: none;
+  }
+
+  footer {
+    border-top: none;
+    background: transparent;
+    padding: 2rem 0;
+  }
+
+  footer a {
+    color: #eaeaea;
+  }
+
+  footer a:hover {
+    color: #63c0f5;
+  }
+
+  #main_content > ul li {
+    padding: 0;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #b5e853;
+  }
+
+  #main_content > ul li::before {
+    display: none;
+  }
+
+  article section ul li {
+    padding-left: 0;
+  }
+
+  article section ul li::before {
+    display: none;
+  }
+
+  article section ul li {
+    list-style-image: url('../assets/bullet.png');
+  }
+
+  .pagination {
+    padding: 2rem 0;
+  }
+
+  .page-item {
+    padding: 0.5rem 1rem;
+    color: #eaeaea;
+    text-decoration: none;
+    border-radius: 0;
+    border: none;
+  }
+
+  .page-item:hover {
+    background: transparent;
+    color: #b5e853;
+    border: none;
+  }
+
+  .page-item:not(a) {
+    background: transparent;
+    color: #b5e853;
+    border: none;
+  }
+
+  section img {
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .music-card:hover {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 0 10px rgba(181, 232, 83, 0.2));
+    box-shadow: none;
+  }
+
+  .music-text-card {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px dashed #b5e853;
+    border-radius: 4px;
+  }
+
+  .music-text-card h3 {
+    color: #b5e853;
+  }
+}
+
