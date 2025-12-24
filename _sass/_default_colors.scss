@@ -1,19 +1,48 @@
 /*
-   original: https://github.com/pages-themes/hacker 
+   Modern Theme Color Palette
 */
 
-$apple-blossom: #ac4142;
-$alto: #d0d0d0;
-$bouquet: #aa759f;
-$chelsea-cucumber: #90a959;
-$cod-grey: #151515;
-$conifer: #b5e853;
-$dove-grey: #666;
-$gallery: #eaeaea;
-$grey: #888;
-$gulf-stream: #75b5aa;
-$hippie-blue: #6a9fb5;
-$potters-clay: #8f5536;
-$rajah: #f4bf75;
-$raw-sienna: #d28445;
-$silver-chalice: #aaa;
+// Primary Colors
+$primary: #6366f1;
+$primary-dark: #4f46e5;
+$primary-light: #818cf8;
+
+// Background Colors
+$bg-primary: #0f172a;
+$bg-secondary: #1e293b;
+$bg-tertiary: #334155;
+$bg-card: #1e293b;
+
+// Text Colors
+$text-primary: #f1f5f9;
+$text-secondary: #cbd5e1;
+$text-tertiary: #94a3b8;
+$text-muted: #64748b;
+
+// Accent Colors
+$accent-blue: #3b82f6;
+$accent-purple: #8b5cf6;
+$accent-green: #10b981;
+$accent-orange: #f59e0b;
+$accent-pink: #ec4899;
+
+// Border & Divider
+$border-color: #334155;
+$border-light: #475569;
+
+// Legacy support (keeping for compatibility)
+$apple-blossom: #ef4444;
+$alto: #cbd5e1;
+$bouquet: #8b5cf6;
+$chelsea-cucumber: #10b981;
+$cod-grey: #0f172a;
+$conifer: #10b981;
+$dove-grey: #64748b;
+$gallery: #f1f5f9;
+$grey: #94a3b8;
+$gulf-stream: #06b6d4;
+$hippie-blue: #3b82f6;
+$potters-clay: #f59e0b;
+$rajah: #fbbf24;
+$raw-sienna: #f97316;
+$silver-chalice: #94a3b8;

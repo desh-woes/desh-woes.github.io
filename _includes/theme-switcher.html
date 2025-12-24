@@ -1,0 +1,66 @@
+<script>
+(function() {
+  const THEME_KEY = 'blog-theme';
+  const THEME_MODERN = 'modern';
+  const THEME_HACKER = 'hacker';
+
+  function getStoredTheme() {
+    try {
+      return localStorage.getItem(THEME_KEY) || THEME_MODERN;
+    } catch (e) {
+      return THEME_MODERN;
+    }
+  }
+
+  function setStoredTheme(theme) {
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+    } catch (e) {
+      // Ignore localStorage errors
+    }
+  }
+
+  function applyTheme(theme) {
+    const body = document.body;
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    if (theme === THEME_HACKER) {
+      body.classList.add('theme-hacker');
+      body.classList.remove('theme-modern');
+      if (themeToggle) {
+        themeToggle.setAttribute('title', 'Switch to modern theme');
+        themeToggle.setAttribute('aria-label', 'Switch to modern theme');
+      }
+    } else {
+      body.classList.add('theme-modern');
+      body.classList.remove('theme-hacker');
+      if (themeToggle) {
+        themeToggle.setAttribute('title', 'Switch to hacker theme');
+        themeToggle.setAttribute('aria-label', 'Switch to hacker theme');
+      }
+    }
+    setStoredTheme(theme);
+  }
+
+  function toggleTheme() {
+    const currentTheme = document.body.classList.contains('theme-hacker') 
+      ? THEME_HACKER 
+      : THEME_MODERN;
+    const newTheme = currentTheme === THEME_HACKER ? THEME_MODERN : THEME_HACKER;
+    applyTheme(newTheme);
+  }
+
+  // Initialize theme on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const storedTheme = getStoredTheme();
+    applyTheme(storedTheme);
+
+    // Add click handler to theme toggle button
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', toggleTheme);
+    }
+  });
+})();
+</script>
+
