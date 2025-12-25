@@ -9,4 +9,42 @@
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl | replace: '//', '/' }}">
   
   <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" /> {% seo %}
+  
+  <!-- Explicit Open Graph and Twitter Card meta tags for social sharing -->
+  {% if page.image %}
+    {% assign image_path = page.image %}
+  {% elsif site.image %}
+    {% assign image_path = site.image %}
+  {% endif %}
+  
+  {% if image_path %}
+    {% if image_path contains 'http' %}
+      {% assign image_url = image_path %}
+    {% else %}
+      {% assign image_url = image_path | prepend: site.url | prepend: site.baseurl %}
+    {% endif %}
+    <meta property="og:image" content="{{ image_url }}" />
+    <meta property="og:image:secure_url" content="{{ image_url }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="{{ image_url }}" />
+  {% endif %}
+  
+  <!-- Author meta tags for LinkedIn and other platforms -->
+  {% if site.author %}
+    {% if site.author.name %}
+      <meta property="article:author" content="{{ site.author.name }}" />
+      <meta name="author" content="{{ site.author.name }}" />
+    {% endif %}
+    {% if site.author.url %}
+      <meta property="article:author:url" content="{{ site.author.url }}" />
+    {% endif %}
+  {% endif %}
+  
+  <!-- Article-specific meta tags for posts -->
+  {% if page.date %}
+    <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
+  {% endif %}
+  {% if page.layout == 'post' %}
+    <meta property="og:type" content="article" />
+  {% endif %}
 </head>
