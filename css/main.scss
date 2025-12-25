@@ -1,5 +1,5 @@
 ---
 #
 ---
-@import "base";
-@import "hacker-theme";
+@use "base" as *;
+@use "hacker-theme" as *;
