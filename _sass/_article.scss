@@ -1,0 +1,35 @@
+/**
+ * Article/Post Content Styles
+ * 
+ * Styling scope:
+ * - Base article container and layout
+ * - Article typography (headings, paragraphs, emphasis)
+ * - Text formatting (strong, em)
+ * 
+ * Used in: Post pages, article content areas
+ * Dependencies: Uses $text-primary, $text-secondary color variables
+ */
+
+article {
+  max-width: 100%;
+}
+
+article h2 {
+  margin-top: 0;
+}
+
+article p {
+  margin-bottom: 1.5rem;
+  color: $text-secondary;
+}
+
+article strong {
+  color: $text-primary;
+  font-weight: 600;
+}
+
+article em {
+  color: $text-secondary;
+  font-style: italic;
+}
+

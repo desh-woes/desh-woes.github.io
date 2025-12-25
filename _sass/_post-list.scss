@@ -1,0 +1,100 @@
+/**
+ * Post List & Archive Styles
+ * 
+ * Styling scope:
+ * - Homepage post list layout and spacing
+ * - Post list item styling (title, date, excerpt)
+ * - Archive page list styling
+ * - Archive page date formatting and links
+ * 
+ * Used in: Homepage (index.html), Archive page
+ * Dependencies: Uses $text-primary, $text-secondary, $text-tertiary, $primary, $border-color
+ * Related: index.html, archive.md
+ */
+
+#main_content > ul {
+  list-style: none;
+  padding: 0;
+}
+
+#main_content > ul li {
+  padding: 0;
+  padding-left: 0 !important;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid $border-color;
+}
+
+#main_content > ul li::before {
+  display: none;
+}
+
+#main_content > ul li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+#main_content > ul li h2 {
+  margin-bottom: 0.5rem;
+}
+
+#main_content > ul li h2 a {
+  color: $text-primary;
+  transition: color 0.2s ease;
+}
+
+#main_content > ul li h2 a:hover {
+  color: $primary-light;
+  border-bottom: none;
+}
+
+#main_content > ul li time {
+  display: block;
+  color: $text-tertiary;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+#main_content > ul li p {
+  color: $text-secondary;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Archive Page List Styles */
+article section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+article section ul li {
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+article section ul li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: $primary;
+  font-weight: bold;
+}
+
+article section ul li time {
+  color: $text-tertiary;
+  font-size: 0.95rem;
+  margin-right: 0.5rem;
+}
+
+article section ul li a {
+  color: $text-primary;
+  transition: color 0.2s ease;
+}
+
+article section ul li a:hover {
+  color: $primary-light;
+}
+

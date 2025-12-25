@@ -1,6 +1,23 @@
-/*
-   Modern Theme Color Palette
-*/
+/**
+ * Modern Theme Color Palette
+ * 
+ * Styling scope:
+ * - All color variables used throughout the theme
+ * - Primary, background, text, accent, and border colors
+ * - Legacy color variables for backward compatibility
+ * 
+ * Usage:
+ * - Imported by base.scss
+ * - Used by all component partials via SCSS variables
+ * - Can be overridden in theme-specific files
+ * 
+ * Color categories:
+ * - Primary: Main brand colors ($primary, $primary-light, $primary-dark)
+ * - Background: Page and component backgrounds ($bg-primary, $bg-secondary, etc.)
+ * - Text: Text color hierarchy ($text-primary, $text-secondary, etc.)
+ * - Accent: Highlight colors ($accent-blue, $accent-green, etc.)
+ * - Border: Border and divider colors ($border-color, $border-light)
+ */
 
 // Primary Colors
 $primary: #6366f1;

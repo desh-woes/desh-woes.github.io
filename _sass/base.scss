@@ -1,9 +1,35 @@
-/*
-   Modern Blog Theme
-*/
+/**
+ * Modern Blog Theme - Main Stylesheet
+ * 
+ * Styling scope:
+ * - Base theme styles (default/modern theme)
+ * - Global typography, layout, and reset styles
+ * - Header, footer, and navigation components
+ * - Code syntax highlighting (via rouge)
+ * - Form elements, tables, and common UI components
+ * - Music grid components
+ * - Mobile responsive breakpoints
+ * 
+ * Theme system:
+ * - This is the default theme
+ * - Hacker theme overrides are in _hacker-theme.scss
+ * - Component styles are in separate partials
+ * 
+ * Dependencies:
+ * - _default_colors.scss (color variables)
+ * - rouge-base16-dark (syntax highlighting)
+ * - Component partials (article, reading-time, post-list, post-navigation, social-sharing)
+ */
 
 @import "rouge-base16-dark";
 @import "default_colors";
+
+// Component partials
+@import "article";
+@import "reading-time";
+@import "post-list";
+@import "post-navigation";
+@import "social-sharing";
 
 $body-background: $bg-primary !default;
 $body-foreground: $text-primary !default;
@@ -468,210 +494,7 @@ footer a:hover {
     width: 100%;
 }
 
-/* Post List Styles (Homepage) */
-#main_content > ul {
-  list-style: none;
-  padding: 0;
-}
 
-#main_content > ul li {
-  padding: 0;
-  padding-left: 0 !important;
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid $border-color;
-}
-
-#main_content > ul li::before {
-  display: none;
-}
-
-#main_content > ul li:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-#main_content > ul li h2 {
-  margin-bottom: 0.5rem;
-}
-
-#main_content > ul li h2 a {
-  color: $text-primary;
-  transition: color 0.2s ease;
-}
-
-#main_content > ul li h2 a:hover {
-  color: $primary-light;
-  border-bottom: none;
-}
-
-#main_content > ul li time {
-  display: block;
-  color: $text-tertiary;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  font-weight: 400;
-}
-
-#main_content > ul li p {
-  color: $text-secondary;
-  line-height: 1.7;
-  margin: 0;
-}
-
-/* Archive Page List Styles */
-article section ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-article section ul li {
-  padding-left: 1.5rem;
-  position: relative;
-  margin-bottom: 0.75rem;
-  line-height: 1.6;
-}
-
-article section ul li::before {
-  content: "→";
-  position: absolute;
-  left: 0;
-  color: $primary;
-  font-weight: bold;
-}
-
-article section ul li time {
-  color: $text-tertiary;
-  font-size: 0.95rem;
-  margin-right: 0.5rem;
-}
-
-article section ul li a {
-  color: $text-primary;
-  transition: color 0.2s ease;
-}
-
-article section ul li a:hover {
-  color: $primary-light;
-}
-
-/* Article/Post Styles */
-article {
-  max-width: 100%;
-}
-
-article h2 {
-  margin-top: 0;
-}
-
-/* Reading Time Component */
-.by-line {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  flex-wrap: wrap;
-  color: $text-tertiary;
-  font-size: 0.95rem;
-  font-weight: 400;
-}
-
-article .by-line {
-  margin-bottom: 2rem;
-}
-
-#main_content > ul li .by-line {
-  margin-bottom: 1rem;
-}
-
-.by-line time {
-  display: inline;
-}
-
-#main_content > ul li .by-line time {
-  margin-bottom: 0;
-}
-
-.by-line .reading-time {
-  color: $text-tertiary;
-  font-size: 0.95rem;
-  font-weight: 400;
-}
-
-.by-line .reading-time::before {
-  content: "•";
-  margin-right: 0.5rem;
-  opacity: 0.6;
-}
-
-article p {
-  margin-bottom: 1.5rem;
-  color: $text-secondary;
-}
-
-article strong {
-  color: $text-primary;
-  font-weight: 600;
-}
-
-article em {
-  color: $text-secondary;
-  font-style: italic;
-}
-
-/* Post Navigation */
-.post-navigation {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid $border-color;
-}
-
-.post-nav-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.post-nav-next {
-  text-align: left;
-}
-
-.post-nav-prev {
-  text-align: right;
-}
-
-.post-nav-label {
-  font-size: 0.85rem;
-  color: $text-tertiary;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.post-nav-link {
-  color: $text-primary;
-  font-size: 1rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.2s ease;
-  line-height: 1.4;
-  border-bottom: 1px solid transparent;
-}
-
-.post-nav-link:hover {
-  color: $primary-light;
-  border-bottom-color: $primary;
-}
-
-.post-nav-next .post-nav-link {
-  padding-right: 1rem;
-}
-
-.post-nav-prev .post-nav-link {
-  padding-left: 1rem;
-}
 
 /* --- Modern Music Grid --- */
 .music-grid {
@@ -817,149 +640,4 @@ article em {
     padding: 0.5rem;
   }
 
-  /* Post Navigation Mobile */
-  .post-navigation {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-  }
-
-  .post-nav-prev {
-    text-align: left;
-  }
-
-  .post-nav-prev .post-nav-link,
-  .post-nav-next .post-nav-link {
-    padding: 0;
-  }
-}
-
-/* Social Sharing Buttons */
-.social-sharing {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin: 3rem 0;
-  padding: 2rem 0;
-  border-top: 1px solid $border-color;
-}
-
-.social-sharing-label {
-  font-size: 0.85rem;
-  color: $text-tertiary;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
-}
-
-.social-sharing-buttons {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.social-share-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  padding: 0.6rem 1.2rem;
-  background: transparent;
-  border: 1px solid $border-color;
-  border-radius: 8px;
-  color: $text-secondary;
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  font-family: inherit;
-  min-width: 44px;
-}
-
-.social-share-btn:hover {
-  background: $bg-secondary;
-  border-color: $primary;
-  color: $text-primary;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.social-share-btn:active {
-  transform: translateY(0);
-}
-
-.social-share-btn.copied {
-  background: $accent-green;
-  border-color: $accent-green;
-  color: white;
-}
-
-.social-share-icon {
-  font-size: 1.1rem;
-  line-height: 1;
-  display: inline-block;
-}
-
-.social-share-text {
-  font-size: 0.875rem;
-  white-space: nowrap;
-}
-
-.social-share-twitter:hover {
-  background: #1da1f2;
-  border-color: #1da1f2;
-  color: white;
-}
-
-.social-share-linkedin:hover {
-  background: #0077b5;
-  border-color: #0077b5;
-  color: white;
-}
-
-.social-share-threads:hover {
-  background: #000000;
-  border-color: #000000;
-  color: white;
-}
-
-.social-share-email:hover {
-  background: $accent-orange;
-  border-color: $accent-orange;
-  color: white;
-}
-
-.social-share-copy:hover {
-  background: $primary;
-  border-color: $primary;
-  color: white;
-}
-
-@media (max-width: 768px) {
-  .social-sharing {
-    margin: 2.5rem 0;
-    padding: 1.5rem 0;
-  }
-  
-  .social-sharing-buttons {
-    gap: 0.4rem;
-  }
-  
-  .social-share-btn {
-    padding: 0.5rem 0.9rem;
-    font-size: 0.8rem;
-  }
-  
-  .social-share-text {
-    display: none;
-  }
-  
-  .social-share-icon {
-    font-size: 1.2rem;
-  }
 }

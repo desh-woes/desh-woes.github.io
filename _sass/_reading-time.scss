@@ -1,0 +1,52 @@
+/**
+ * Reading Time & By-line Component
+ * 
+ * Styling scope:
+ * - Post metadata display (date, reading time)
+ * - By-line container layout and spacing
+ * - Reading time estimate styling
+ * - Context-specific spacing (article vs. post list)
+ * 
+ * Used in: Post pages, homepage post list
+ * Dependencies: Uses $text-tertiary color variable
+ * Related: reading-time.html include
+ */
+
+.by-line {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  color: $text-tertiary;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+article .by-line {
+  margin-bottom: 2rem;
+}
+
+#main_content > ul li .by-line {
+  margin-bottom: 1rem;
+}
+
+.by-line time {
+  display: inline;
+}
+
+#main_content > ul li .by-line time {
+  margin-bottom: 0;
+}
+
+.by-line .reading-time {
+  color: $text-tertiary;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.by-line .reading-time::before {
+  content: "•";
+  margin-right: 0.5rem;
+  opacity: 0.6;
+}
+
