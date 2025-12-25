@@ -1,9 +1,13 @@
 title: Desh-woes
 description: "An online journal for Desh"
+url: "https://deshwoes.com"
 author:
   name: "Oluwarotimi"
   email: "ksadesina@gmail.com"
   url: "https://deshwoes.com"
+
+# Social sharing image (Open Graph & Twitter Cards)
+image: "/assets/grad_pic.png"
 
 baseurl: ""
 
