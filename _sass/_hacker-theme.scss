@@ -46,6 +46,7 @@ body.theme-hacker {
 
   .header-links {
     text-align: center;
+    align-items: baseline;
   }
 
   .header-link h2 {
@@ -56,6 +57,21 @@ body.theme-hacker {
   }
 
   .header-link h2:hover {
+    color: #b5e853;
+  }
+
+  .theme-toggle {
+    font-size: 18px;
+    padding: 0 0.5rem;
+    line-height: 1.5;
+    height: 1.5em;
+    border-color: #666;
+    color: #666;
+  }
+
+  .theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: #b5e853;
     color: #b5e853;
   }
 
