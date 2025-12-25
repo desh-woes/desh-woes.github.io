@@ -8,7 +8,7 @@
 <nav class="post-navigation">
   {% if page.next %}
     <div class="post-nav-item post-nav-next">
-      <span class="post-nav-label">Next →</span>
+      <span class="post-nav-label">Next ←</span>
       <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" class="post-nav-link">
         {{ page.next.title }}
       </a>
@@ -19,7 +19,7 @@
 
   {% if page.previous %}
     <div class="post-nav-item post-nav-prev">
-      <span class="post-nav-label">← Previous</span>
+      <span class="post-nav-label">→ Previous</span>
       <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" class="post-nav-link">
         {{ page.previous.title }}
       </a>

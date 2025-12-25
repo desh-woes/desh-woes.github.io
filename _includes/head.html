@@ -9,23 +9,4 @@
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl | replace: '//', '/' }}">
   
   <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" /> {% seo %}
-  
-  <!-- Explicit Open Graph and Twitter Card meta tags for social sharing -->
-  {% if page.image %}
-    {% assign image_path = page.image %}
-  {% elsif site.image %}
-    {% assign image_path = site.image %}
-  {% endif %}
-  
-  {% if image_path %}
-    {% if image_path contains 'http' %}
-      {% assign image_url = image_path %}
-    {% else %}
-      {% assign image_url = image_path | prepend: site.url | prepend: site.baseurl %}
-    {% endif %}
-    <meta property="og:image" content="{{ image_url }}" />
-    <meta property="og:image:secure_url" content="{{ image_url }}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="{{ image_url }}" />
-  {% endif %}
 </head>
