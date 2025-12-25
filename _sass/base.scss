@@ -834,3 +834,132 @@ article em {
     padding: 0;
   }
 }
+
+/* Social Sharing Buttons */
+.social-sharing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid $border-color;
+}
+
+.social-sharing-label {
+  font-size: 0.85rem;
+  color: $text-tertiary;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.social-sharing-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.social-share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  color: $text-secondary;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-family: inherit;
+  min-width: 44px;
+}
+
+.social-share-btn:hover {
+  background: $bg-secondary;
+  border-color: $primary;
+  color: $text-primary;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.social-share-btn:active {
+  transform: translateY(0);
+}
+
+.social-share-btn.copied {
+  background: $accent-green;
+  border-color: $accent-green;
+  color: white;
+}
+
+.social-share-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-block;
+}
+
+.social-share-text {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.social-share-twitter:hover {
+  background: #1da1f2;
+  border-color: #1da1f2;
+  color: white;
+}
+
+.social-share-linkedin:hover {
+  background: #0077b5;
+  border-color: #0077b5;
+  color: white;
+}
+
+.social-share-threads:hover {
+  background: #000000;
+  border-color: #000000;
+  color: white;
+}
+
+.social-share-email:hover {
+  background: $accent-orange;
+  border-color: $accent-orange;
+  color: white;
+}
+
+.social-share-copy:hover {
+  background: $primary;
+  border-color: $primary;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .social-sharing {
+    margin: 2.5rem 0;
+    padding: 1.5rem 0;
+  }
+  
+  .social-sharing-buttons {
+    gap: 0.4rem;
+  }
+  
+  .social-share-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8rem;
+  }
+  
+  .social-share-text {
+    display: none;
+  }
+  
+  .social-share-icon {
+    font-size: 1.2rem;
+  }
+}
