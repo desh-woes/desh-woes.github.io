@@ -1,0 +1,230 @@
+/**
+ * Music Reflection Post Styles
+ * 
+ * Styling scope:
+ * - Styles for music reflection blog posts with side-by-side layouts
+ * - Intro paragraph styling
+ * - Music text card overrides for reflections
+ * - Entry separators
+ * - Section spacing
+ * 
+ * Used in: Music reflection posts (e.g., Sonic Chapters)
+ * 
+ * Theme system:
+ * - Uses theme color variables for consistency
+ * - Hacker theme overrides in _hacker-theme-overrides.scss
+ */
+
+/* Intro paragraphs */
+.music-intro {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: $text-secondary;
+  
+  &:last-of-type {
+    margin-bottom: 2rem;
+  }
+}
+
+/* Section spacing */
+.music-section-spacer {
+  margin-bottom: 2rem;
+}
+
+/* Music text card overrides for reflections */
+.music-text-card.music-reflection {
+  max-width: none;
+  margin-bottom: 0;
+  
+  p {
+    margin: 0;
+    line-height: 1.8;
+    color: inherit;
+  }
+  
+  strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Entry separator */
+.music-entry-separator {
+  margin: 1.5rem 0 3rem 0;
+  border-top: 1px solid $border-color;
+  opacity: 0.5;
+  
+  &.music-section-separator {
+    margin: 1.5rem 0 4rem 0;
+  }
+}
+
+/* Spotify iframe styling */
+.music-card iframe {
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.music-card:hover iframe {
+  transform: scale(1.02);
+}
+
+/* Stats list styling */
+.music-stats {
+  margin: 1.5rem 0 2rem 0;
+  padding-left: 0;
+  list-style: none;
+  
+  li {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: $bg-secondary;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    line-height: 1.8;
+    color: $text-secondary;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 3.5rem;
+    
+    &::before {
+      content: "📊";
+      position: absolute;
+      left: 1.25rem;
+      top: 1.25rem;
+      font-size: 1.25rem;
+    }
+    
+    &:hover {
+      border-color: $primary;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      transform: translateX(4px);
+    }
+    
+    strong {
+      color: $text-primary;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+  }
+}
+
+/* Playlist link button */
+.music-playlist-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.75rem;
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+  margin: 2rem 0;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px -2px rgba(99, 102, 241, 0.4);
+    background: linear-gradient(135deg, $primary-light 0%, $primary 100%);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Listen count badge */
+.music-listen-count {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: $bg-tertiary;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: $accent-green;
+  font-weight: 600;
+  margin-right: 0.75rem;
+  
+  &::before {
+    content: "▶ ";
+    font-size: 0.75rem;
+  }
+}
+
+/* Music title highlighting */
+.music-title {
+  color: $primary-light;
+  font-weight: 600;
+  font-style: italic;
+  background: rgba(99, 102, 241, 0.1);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: inline-block;
+  
+  &:hover {
+    background: rgba(99, 102, 241, 0.2);
+    color: $primary;
+  }
+}
+
+/* Scroll-triggered animations */
+.music-card,
+.music-text-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  &.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-card,
+  .music-text-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 768px) {
+  .music-playlist-link {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .music-listen-count {
+    display: block;
+    margin: 0.5rem 0 0.75rem 0;
+    width: fit-content;
+  }
+  
+  .music-stats li {
+    padding-left: 2.75rem;
+    
+    &::before {
+      left: 1rem;
+      top: 1.125rem;
+      font-size: 1.1rem;
+    }
+  }
+  
+  .music-text-card.music-reflection {
+    strong {
+      font-size: 1rem;
+    }
+  }
+}
+

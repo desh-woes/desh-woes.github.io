@@ -31,6 +31,7 @@
 @import "post-navigation";
 @import "social-sharing";
 @import "subscription";
+@import "music-reflection";
 
 $body-background: $bg-primary !default;
 $body-foreground: $text-primary !default;
@@ -354,6 +355,17 @@ hr {
   color: transparent;
 }
 
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 /* Buttons
 */
 
@@ -493,6 +505,41 @@ footer a:hover {
 
 .is-fullwidth {
     width: 100%;
+}
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  background: $primary;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  
+  &:hover {
+    background: $primary-light;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+  }
+  
+  &:active {
+    transform: translateY(-2px);
+  }
+  
+  &.visible {
+    display: flex;
+  }
 }
 
 
@@ -639,6 +686,14 @@ footer a:hover {
 
   th, td {
     padding: 0.5rem;
+  }
+  
+  .back-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
   }
 
 }

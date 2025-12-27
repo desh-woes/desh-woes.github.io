@@ -281,5 +281,26 @@ body.theme-hacker {
   .music-text-card h3 {
     color: #b5e853;
   }
+
+  /* Music Reflection Styles - Hacker Theme */
+  .music-intro {
+    color: #eaeaea;
+    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  }
+
+  .music-entry-separator {
+    border-top: 1px dashed #b5e853;
+    opacity: 0.6;
+  }
+
+  .music-stats {
+    li {
+      color: #eaeaea;
+      
+      strong {
+        color: #b5e853;
+      }
+    }
+  }
 }
 
