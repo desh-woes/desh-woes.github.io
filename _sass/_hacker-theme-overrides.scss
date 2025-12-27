@@ -1,24 +1,14 @@
 /**
  * Hacker Theme - Component Overrides
  * 
- * Styling scope:
- * - Component-specific style overrides for hacker theme
- * - Social sharing buttons (dashed borders, terminal colors)
- * - Maintains hacker aesthetic while using shared component structure
+ * Component-specific overrides for hacker theme (terminal aesthetic).
+ * Applied within body.theme-hacker scope. Uses terminal colors (#b5e853 green)
+ * and monospace fonts. Add new component overrides here when needed.
  * 
- * Theme system:
- * - Overrides styles from component partials
- * - Applied within body.theme-hacker scope
- * - Uses terminal-style colors (#b5e853 green, monospace fonts)
- * 
- * Dependencies:
- * - Component partials (social-sharing, etc.)
- * - _hacker-theme.scss (base hacker theme)
- * 
- * Note: Add new component overrides here when needed
+ * Dependencies: Component partials, _hacker-theme.scss
  */
 
-/* Social Sharing Buttons - Hacker Theme */
+/* Social sharing buttons */
 body.theme-hacker {
   .social-sharing {
     border-top: 1px dashed #b5e853;
@@ -95,7 +85,7 @@ body.theme-hacker {
   }
 }
 
-/* Subscription Form - Hacker Theme */
+/* Subscription form */
 body.theme-hacker {
   .subscription-section {
     border-top: 1px dashed #b5e853;
@@ -206,7 +196,7 @@ body.theme-hacker {
   }
 }
 
-/* Back to top button - Hacker Theme */
+/* Back-to-top button */
 body.theme-hacker {
   .back-to-top {
     background: rgba(0, 0, 0, 0.8);
@@ -224,12 +214,12 @@ body.theme-hacker {
     }
   }
   
-  /* Music Post Enhancements - Hacker Theme */
+  /* Music post enhancements */
   .music-stats li {
     background: rgba(0, 0, 0, 0.5);
     border: 1px dashed #666;
     border-radius: 0;
-    padding-left: 4rem; /* Extra space for the "> " bullet */
+    padding-left: 4rem; /* Extra space for "> " bullet */
     
     &::before {
       content: "> ";

@@ -1,11 +1,29 @@
+<!--
+  Post Enhancements Script
+  
+  Provides:
+  - Back-to-top button (appears after 300px scroll)
+  - Scroll-triggered fade-in animations for music cards
+  
+  Included in: post.html layout
+  Dependencies: .back-to-top, .music-card, .music-text-card, .fade-in classes
+-->
 <script>
 (function() {
   'use strict';
   
-  // Back to top button functionality
+  // Configuration constants
+  const SCROLL_THRESHOLD = 300; // Pixels to scroll before showing back-to-top button
+  const ANIMATION_THRESHOLD = 0.1; // Intersection Observer threshold (10% visible)
+  const ANIMATION_ROOT_MARGIN = '0px 0px -50px 0px'; // Trigger animation 50px before element enters viewport
+  
+  /**
+   * Initializes back-to-top button.
+   * Creates floating button that appears after scrolling 300px.
+   */
   function initBackToTop() {
-    // Create back to top button if it doesn't exist
     let backToTopBtn = document.getElementById('back-to-top');
+    
     if (!backToTopBtn) {
       backToTopBtn = document.createElement('button');
       backToTopBtn.className = 'back-to-top';
@@ -16,7 +34,7 @@
     }
     
     function toggleBackToTop() {
-      if (window.pageYOffset > 300) {
+      if (window.pageYOffset > SCROLL_THRESHOLD) {
         backToTopBtn.classList.add('visible');
       } else {
         backToTopBtn.classList.remove('visible');
@@ -31,17 +49,20 @@
     });
     
     window.addEventListener('scroll', toggleBackToTop);
-    toggleBackToTop(); // Check on load
+    toggleBackToTop(); // Check initial state
   }
   
-  // Scroll-triggered animations for music cards
+  /**
+   * Initializes scroll-triggered fade-in animations for music cards.
+   * Uses Intersection Observer to add .fade-in class when cards enter viewport.
+   */
   function initScrollAnimations() {
     const cards = document.querySelectorAll('.music-card, .music-text-card');
     if (cards.length === 0) return;
     
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: ANIMATION_THRESHOLD,
+      rootMargin: ANIMATION_ROOT_MARGIN
     };
     
     const observer = new IntersectionObserver(function(entries) {
@@ -53,20 +74,18 @@
       });
     }, observerOptions);
     
-    cards.forEach(card => {
-      observer.observe(card);
-    });
+    cards.forEach(card => observer.observe(card));
   }
   
-  // Initialize on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      initBackToTop();
-      initScrollAnimations();
-    });
-  } else {
+  function init() {
     initBackToTop();
     initScrollAnimations();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();
 </script>

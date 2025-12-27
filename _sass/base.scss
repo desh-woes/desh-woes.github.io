@@ -507,7 +507,15 @@ footer a:hover {
     width: 100%;
 }
 
-/* Back to top button */
+/* ==========================================================================
+   Back to Top Button
+   ========================================================================== */
+
+/**
+ * Back-to-top button - appears after scrolling 300px.
+ * Created and controlled by post-enhancements.html.
+ * Theme variants: default (rounded), hacker (dashed border)
+ */
 .back-to-top {
   position: fixed;
   bottom: 2rem;
@@ -544,7 +552,17 @@ footer a:hover {
 
 
 
-/* --- Modern Music Grid --- */
+/* ==========================================================================
+   Modern Music Grid Components
+   ========================================================================== */
+
+/**
+ * Music grid and card components for Spotify embeds.
+ * Components: .music-grid (grid layout), .music-card (iframe container),
+ * .music-text-card (text content), .music-float-left/right (side-by-side).
+ * See _music-reflection.scss for reflection variants.
+ */
+
 .music-grid {
   display: grid;
   clear: both;
@@ -557,7 +575,7 @@ footer a:hover {
 .music-card {
   transition: all 0.3s ease;
   width: 100%;
-  line-height: 0;
+  line-height: 0; /* Removes spacing around iframe */
   border-radius: 8px;
   overflow: hidden;
 }
@@ -589,7 +607,14 @@ footer a:hover {
   font-size: 1.2rem;
 }
 
-/* --- The "Wrap Around" Logic --- */
+/* ==========================================================================
+   Float Utilities for Side-by-Side Layouts
+   ========================================================================== */
+
+/**
+ * Float utilities for side-by-side layouts.
+ * Note: Add <div class="cf"></div> after floated elements to clear.
+ */
 .music-float-left {
   float: left;
   margin: 0 20px 20px 0;

@@ -1,21 +1,19 @@
 /**
  * Music Reflection Post Styles
  * 
- * Styling scope:
- * - Styles for music reflection blog posts with side-by-side layouts
- * - Intro paragraph styling
- * - Music text card overrides for reflections
- * - Entry separators
- * - Section spacing
+ * Specialized styling for music reflection posts with side-by-side layouts.
+ * Components: intro paragraphs, stats lists, playlist links, entry separators,
+ * and scroll-triggered animations.
  * 
- * Used in: Music reflection posts (e.g., Sonic Chapters)
- * 
- * Theme system:
- * - Uses theme color variables for consistency
- * - Hacker theme overrides in _hacker-theme-overrides.scss
+ * Dependencies: base.scss, _default_colors.scss, post-enhancements.html
+ * Theme overrides: _hacker-theme-overrides.scss
  */
 
-/* Intro paragraphs */
+/* ==========================================================================
+   Intro Paragraphs
+   ========================================================================== */
+
+/* Intro paragraphs for music reflection posts */
 .music-intro {
   font-size: 1.1rem;
   line-height: 1.8;
@@ -27,12 +25,20 @@
   }
 }
 
-/* Section spacing */
+/* ==========================================================================
+   Section Spacing
+   ========================================================================== */
+
+/* Spacing utility between major sections */
 .music-section-spacer {
   margin-bottom: 2rem;
 }
 
-/* Music text card overrides for reflections */
+/* ==========================================================================
+   Music Text Card - Reflection Variant
+   ========================================================================== */
+
+/* Text card variant for reflection posts (removes max-width, adjusts typography) */
 .music-text-card.music-reflection {
   max-width: none;
   margin-bottom: 0;
@@ -50,7 +56,11 @@
   }
 }
 
-/* Entry separator */
+/* ==========================================================================
+   Entry Separators
+   ========================================================================== */
+
+/* Separator between music entries */
 .music-entry-separator {
   margin: 1.5rem 0 3rem 0;
   border-top: 1px solid $border-color;
@@ -61,7 +71,11 @@
   }
 }
 
-/* Spotify iframe styling */
+/* ==========================================================================
+   Spotify Embed Styling
+   ========================================================================== */
+
+/* Spotify iframe styling with rounded corners and hover effects */
 .music-card iframe {
   border-radius: 12px;
   transition: transform 0.3s ease;
@@ -71,7 +85,11 @@
   transform: scale(1.02);
 }
 
-/* Stats list styling */
+/* ==========================================================================
+   Stats List
+   ========================================================================== */
+
+/* Stats list with card-like appearance and icon indicators */
 .music-stats {
   margin: 1.5rem 0 2rem 0;
   padding-left: 0;
@@ -112,7 +130,11 @@
   }
 }
 
-/* Playlist link button */
+/* ==========================================================================
+   Playlist Link Button
+   ========================================================================== */
+
+/* Playlist link button with gradient and hover effects */
 .music-playlist-link {
   display: inline-flex;
   align-items: center;
@@ -139,7 +161,11 @@
   }
 }
 
-/* Listen count badge */
+/* ==========================================================================
+   Listen Count Badge
+   ========================================================================== */
+
+/* Badge for displaying song listen counts */
 .music-listen-count {
   display: inline-block;
   padding: 0.25rem 0.75rem;
@@ -157,7 +183,11 @@
   }
 }
 
-/* Music title highlighting */
+/* ==========================================================================
+   Music Title Highlighting
+   ========================================================================== */
+
+/* Inline highlighting for song/album titles */
 .music-title {
   color: $primary-light;
   font-weight: 600;
@@ -174,7 +204,11 @@
   }
 }
 
-/* Scroll-triggered animations */
+/* ==========================================================================
+   Scroll-Triggered Animations
+   ========================================================================== */
+
+/* Fade-in animation triggered by JavaScript (post-enhancements.html) */
 .music-card,
 .music-text-card {
   opacity: 0;
@@ -196,7 +230,11 @@
   }
 }
 
-/* Mobile responsive improvements */
+/* ==========================================================================
+   Mobile Responsive Styles
+   ========================================================================== */
+
+/* Mobile responsive adjustments */
 @media (max-width: 768px) {
   .music-playlist-link {
     width: 100%;

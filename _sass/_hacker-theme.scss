@@ -1,22 +1,12 @@
 /**
  * Hacker Theme - Base Styles
  * 
- * Styling scope:
- * - Terminal/hacker aesthetic theme styles
- * - Applied when body has .theme-hacker class
- * - Global theme overrides (background, typography, colors)
- * - Header, footer, and navigation theme styling
- * - Code blocks, tables, and form elements in hacker style
- * - Music grid components in hacker style
+ * Terminal/hacker aesthetic theme. Applied when body has .theme-hacker class.
+ * Includes global overrides (background, typography, colors), header/footer,
+ * code blocks, tables, and music components.
  * 
- * Theme system:
- * - This file contains base hacker theme styles
- * - Component-specific overrides are in _hacker-theme-overrides.scss
- * - Uses monospace fonts, green terminal colors, dashed borders
- * 
- * Dependencies:
- * - _hacker-theme-overrides.scss (component overrides)
- * - base.scss (imported via main.scss)
+ * Component overrides: _hacker-theme-overrides.scss
+ * Dependencies: base.scss (imported via main.scss)
  */
 
 @import "hacker-theme-overrides";
@@ -282,7 +272,7 @@ body.theme-hacker {
     color: #b5e853;
   }
 
-  /* Music Reflection Styles - Hacker Theme */
+  /* Music reflection styles */
   .music-intro {
     color: #eaeaea;
     font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
