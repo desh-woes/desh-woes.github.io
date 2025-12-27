@@ -2,39 +2,41 @@
  * Hacker Theme - Component Overrides
  * 
  * Component-specific overrides for hacker theme (terminal aesthetic).
- * Applied within body.theme-hacker scope. Uses terminal colors (#b5e853 green)
- * and monospace fonts. Add new component overrides here when needed.
+ * Applied within body.theme-hacker scope. Uses variables from
+ * _hacker-theme-variables.scss for colors and fonts.
  * 
- * Dependencies: Component partials, _hacker-theme.scss
+ * Dependencies: Component partials, _hacker-theme.scss, _hacker-theme-variables.scss
  */
+
+@import "hacker-theme-variables";
 
 /* Social sharing buttons */
 body.theme-hacker {
   .social-sharing {
-    border-top: 1px dashed #b5e853;
+    border-top: 1px dashed $hacker-green;
   }
 
   .social-sharing-label {
-    color: #666;
+    color: $hacker-text-muted;
     font-weight: normal;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    font-family: $hacker-font;
   }
 
   .social-share-btn {
     background: transparent;
-    border: 1px dashed #666;
+    border: 1px dashed $hacker-border;
     border-radius: 0;
-    color: #eaeaea;
+    color: $hacker-text;
     font-weight: normal;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    font-family: $hacker-font;
   }
 
   .social-share-btn:hover {
     background: rgba(0, 0, 0, 0.5);
-    border-color: #b5e853;
-    color: #b5e853;
-    text-shadow: 0 0 5px rgba(181, 232, 83, 0.5);
-    box-shadow: 0 2px 8px rgba(181, 232, 83, 0.2);
+    border-color: $hacker-green;
+    color: $hacker-green;
+    text-shadow: 0 0 5px rgba($hacker-green, 0.5);
+    box-shadow: 0 2px 8px rgba($hacker-green, 0.2);
   }
 
   .social-share-btn.copied {
@@ -88,78 +90,78 @@ body.theme-hacker {
 /* Subscription form */
 body.theme-hacker {
   .subscription-section {
-    border-top: 1px dashed #b5e853;
-    border-bottom: 1px dashed #b5e853;
+    border-top: 1px dashed $hacker-green;
+    border-bottom: 1px dashed $hacker-green;
     background: transparent;
   }
 
   .subscription-title {
-    color: #b5e853;
+    color: $hacker-green;
     font-weight: normal;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    font-family: $hacker-font;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-                 0 0 5px rgba(181, 232, 83, 0.1),
-                 0 0 10px rgba(181, 232, 83, 0.1);
+                 0 0 5px rgba($hacker-green, 0.1),
+                 0 0 10px rgba($hacker-green, 0.1);
     letter-spacing: -0.03em;
   }
 
   .subscription-description {
-    color: #eaeaea;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    color: $hacker-text;
+    font-family: $hacker-font;
   }
 
   .subscription-input {
     background: rgba(0, 0, 0, 0.5);
-    border: 1px dashed #666;
+    border: 1px dashed $hacker-border;
     border-radius: 0;
-    color: #eaeaea;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    color: $hacker-text;
+    font-family: $hacker-font;
     box-shadow: none;
   }
 
   .subscription-input::placeholder {
-    color: #666;
+    color: $hacker-text-muted;
   }
 
   .subscription-input:focus {
-    border-color: #b5e853;
+    border-color: $hacker-green;
     background: rgba(0, 0, 0, 0.7);
-    box-shadow: 0 0 5px rgba(181, 232, 83, 0.3);
+    box-shadow: 0 0 5px rgba($hacker-green, 0.3);
     outline: none;
   }
 
   .subscription-input:focus-visible {
-    outline: 1px dashed #b5e853;
+    outline: 1px dashed $hacker-green;
     outline-offset: 2px;
   }
 
   .subscription-button {
     background: transparent;
-    border: 1px dashed #666;
+    border: 1px dashed $hacker-border;
     border-radius: 0;
-    color: #eaeaea;
+    color: $hacker-text;
     font-weight: normal;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    font-family: $hacker-font;
     box-shadow: none;
   }
 
   .subscription-button:hover:not(:disabled) {
     background: rgba(0, 0, 0, 0.5);
-    border-color: #b5e853;
-    color: #b5e853;
-    text-shadow: 0 0 5px rgba(181, 232, 83, 0.5);
-    box-shadow: 0 2px 8px rgba(181, 232, 83, 0.2);
+    border-color: $hacker-green;
+    color: $hacker-green;
+    text-shadow: 0 0 5px rgba($hacker-green, 0.5);
+    box-shadow: 0 2px 8px rgba($hacker-green, 0.2);
     transform: none;
   }
 
   .subscription-button:active:not(:disabled) {
     transform: none;
-    box-shadow: 0 0 5px rgba(181, 232, 83, 0.3);
+    box-shadow: 0 0 5px rgba($hacker-green, 0.3);
   }
 
   .subscription-message {
     border-radius: 0;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    font-family: $hacker-font;
   }
 
   .subscription-message-success {
@@ -182,7 +184,7 @@ body.theme-hacker {
     }
 
     .subscription-input:focus {
-      box-shadow: 0 0 5px rgba(181, 232, 83, 0.3);
+      box-shadow: 0 0 5px rgba($hacker-green, 0.3);
     }
 
     .subscription-button {
@@ -191,7 +193,7 @@ body.theme-hacker {
 
     .subscription-button:active:not(:disabled) {
       transform: none;
-      box-shadow: 0 0 5px rgba(181, 232, 83, 0.3);
+      box-shadow: 0 0 5px rgba($hacker-green, 0.3);
     }
   }
 }
@@ -200,16 +202,16 @@ body.theme-hacker {
 body.theme-hacker {
   .back-to-top {
     background: rgba(0, 0, 0, 0.8);
-    border: 1px dashed #666;
+    border: 1px dashed $hacker-border;
     border-radius: 0;
-    color: #b5e853;
-    box-shadow: 0 0 10px rgba(181, 232, 83, 0.3);
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    color: $hacker-green;
+    box-shadow: 0 0 10px rgba($hacker-green, 0.3);
+    font-family: $hacker-font;
     
     &:hover {
       background: rgba(0, 0, 0, 0.9);
-      border-color: #b5e853;
-      box-shadow: 0 0 15px rgba(181, 232, 83, 0.5);
+      border-color: $hacker-green;
+      box-shadow: 0 0 15px rgba($hacker-green, 0.5);
       transform: translateY(-2px);
     }
   }
@@ -217,75 +219,75 @@ body.theme-hacker {
   /* Music post enhancements */
   .music-stats li {
     background: rgba(0, 0, 0, 0.5);
-    border: 1px dashed #666;
+    border: 1px dashed $hacker-border;
     border-radius: 0;
     padding-left: 4rem; /* Extra space for "> " bullet */
     
     &::before {
       content: "> ";
-      color: #b5e853;
+      color: $hacker-green;
       position: absolute;
       left: 1.25rem;
       top: 1.25rem;
       font-size: 1rem;
-      font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+      font-family: $hacker-font;
     }
     
     &:hover {
-      border-color: #b5e853;
-      box-shadow: 0 0 5px rgba(181, 232, 83, 0.2);
+      border-color: $hacker-green;
+      box-shadow: 0 0 5px rgba($hacker-green, 0.2);
       transform: translateX(2px);
     }
     
     strong {
-      color: #b5e853;
+      color: $hacker-green;
     }
   }
   
   .music-playlist-link {
     background: transparent;
-    border: 1px dashed #666;
+    border: 1px dashed $hacker-border;
     border-radius: 0;
-    color: #eaeaea;
+    color: $hacker-text;
     box-shadow: none;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    font-family: $hacker-font;
     
     &:hover {
       background: rgba(0, 0, 0, 0.5);
-      border-color: #b5e853;
-      color: #b5e853;
-      text-shadow: 0 0 5px rgba(181, 232, 83, 0.5);
-      box-shadow: 0 2px 8px rgba(181, 232, 83, 0.2);
+      border-color: $hacker-green;
+      color: $hacker-green;
+      text-shadow: 0 0 5px rgba($hacker-green, 0.5);
+      box-shadow: 0 2px 8px rgba($hacker-green, 0.2);
       transform: none;
     }
   }
   
   .music-listen-count {
     background: rgba(0, 0, 0, 0.5);
-    border: 1px dashed #666;
+    border: 1px dashed $hacker-border;
     border-radius: 0;
-    color: #10b981;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    color: $accent-green;
+    font-family: $hacker-font;
     
     &::before {
       content: "▶ ";
-      color: #10b981;
+      color: $accent-green;
     }
   }
   
   .music-title {
-    color: #b5e853;
+    color: $hacker-green;
     font-weight: normal;
     font-style: normal;
-    background: rgba(181, 232, 83, 0.1);
+    background: rgba($hacker-green, 0.1);
     padding: 0.15rem 0.4rem;
     border-radius: 0;
-    border: 1px dashed #b5e853;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    border: 1px dashed $hacker-green;
+    font-family: $hacker-font;
     
     &:hover {
-      background: rgba(181, 232, 83, 0.2);
-      text-shadow: 0 0 5px rgba(181, 232, 83, 0.5);
+      background: rgba($hacker-green, 0.2);
+      text-shadow: 0 0 5px rgba($hacker-green, 0.5);
     }
   }
 }

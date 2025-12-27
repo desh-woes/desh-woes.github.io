@@ -9,14 +9,15 @@
  * Dependencies: base.scss (imported via main.scss)
  */
 
+@import "hacker-theme-variables";
 @import "hacker-theme-overrides";
 
 body.theme-hacker {
-  background: #151515 url("../assets/bkg.png") 0 0;
-  color: #eaeaea;
+  background: $hacker-bg url("../assets/bkg.png") 0 0;
+  color: $hacker-text;
   font-size: 16px;
   line-height: 1.5;
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  font-family: $hacker-font;
 
   .container {
     width: 90%;
@@ -25,7 +26,7 @@ body.theme-hacker {
 
   header {
     background: rgba(0, 0, 0, 0.1);
-    border-bottom: 1px dashed #b5e853;
+    border-bottom: 1px dashed $hacker-green;
     padding: 20px;
     margin: 0 0 40px 0;
     position: static;
@@ -44,11 +45,11 @@ body.theme-hacker {
     margin: 0;
     text-align: center;
     font-weight: bold;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-    color: #b5e853;
+    font-family: $hacker-font;
+    color: $hacker-green;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-                 0 0 5px rgba(181, 232, 83, 0.1),
-                 0 0 10px rgba(181, 232, 83, 0.1);
+                 0 0 5px rgba($hacker-green, 0.1),
+                 0 0 10px rgba($hacker-green, 0.1);
     letter-spacing: -1px;
   }
 
@@ -60,12 +61,12 @@ body.theme-hacker {
   .header-link h2 {
     font-size: 18px;
     font-weight: 300;
-    color: #666;
+    color: $hacker-text-muted;
     margin: 0;
   }
 
   .header-link h2:hover {
-    color: #b5e853;
+    color: $hacker-green;
   }
 
   .theme-toggle {
@@ -73,24 +74,24 @@ body.theme-hacker {
     padding: 0 0.5rem;
     line-height: 1.5;
     height: 1.5em;
-    border-color: #666;
-    color: #666;
+    border-color: $hacker-text-muted;
+    color: $hacker-text-muted;
   }
 
   .theme-toggle:hover {
     background: rgba(0, 0, 0, 0.3);
-    border-color: #b5e853;
-    color: #b5e853;
+    border-color: $hacker-green;
+    color: $hacker-green;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-    color: #b5e853;
+    font-family: $hacker-font;
+    color: $hacker-green;
     letter-spacing: -0.03em;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
-                 0 0 5px rgba(181, 232, 83, 0.1),
-                 0 0 10px rgba(181, 232, 83, 0.1);
+                 0 0 5px rgba($hacker-green, 0.1),
+                 0 0 10px rgba($hacker-green, 0.1);
   }
 
   #main_content h1 {
@@ -117,7 +118,7 @@ body.theme-hacker {
   blockquote {
     color: #aaa;
     padding-left: 10px;
-    border-left: 1px dotted #666;
+    border-left: 1px dotted $hacker-border;
     background: transparent;
     border-radius: 0;
     font-style: normal;
@@ -128,7 +129,7 @@ body.theme-hacker {
     border: 1px solid rgba(255, 255, 255, 0.15);
     padding: 10px;
     font-size: 16px;
-    color: #b5e853;
+    color: $hacker-green;
     border-radius: 2px;
     box-shadow: none;
   }
@@ -140,7 +141,7 @@ body.theme-hacker {
     margin: 0px -3px;
     color: #aa759f;
     border-radius: 2px;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    font-family: $hacker-font;
   }
 
   table {
@@ -153,10 +154,10 @@ body.theme-hacker {
 
   th {
     text-align: left;
-    border-bottom: 1px dashed #b5e853;
+    border-bottom: 1px dashed $hacker-green;
     padding: 5px 10px;
     background: transparent;
-    color: #eaeaea;
+    color: $hacker-text;
     font-weight: normal;
   }
 
@@ -172,8 +173,8 @@ body.theme-hacker {
   hr {
     height: 0;
     border: 0;
-    border-bottom: 1px dashed #b5e853;
-    color: #b5e853;
+    border-bottom: 1px dashed $hacker-green;
+    color: $hacker-green;
     margin: 20px 0;
   }
 
@@ -195,7 +196,7 @@ body.theme-hacker {
   }
 
   footer a {
-    color: #eaeaea;
+    color: $hacker-text;
   }
 
   footer a:hover {
@@ -206,7 +207,7 @@ body.theme-hacker {
     padding: 0;
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px dashed #b5e853;
+    border-bottom: 1px dashed $hacker-green;
   }
 
   #main_content > ul li::before {
@@ -231,7 +232,7 @@ body.theme-hacker {
 
   .page-item {
     padding: 0.5rem 1rem;
-    color: #eaeaea;
+    color: $hacker-text;
     text-decoration: none;
     border-radius: 0;
     border: none;
@@ -239,13 +240,13 @@ body.theme-hacker {
 
   .page-item:hover {
     background: transparent;
-    color: #b5e853;
+    color: $hacker-green;
     border: none;
   }
 
   .page-item:not(a) {
     background: transparent;
-    color: #b5e853;
+    color: $hacker-green;
     border: none;
   }
 
@@ -257,38 +258,38 @@ body.theme-hacker {
 
   .music-card:hover {
     transform: translateY(-8px);
-    filter: drop-shadow(0 0 10px rgba(181, 232, 83, 0.2));
+    filter: drop-shadow(0 0 10px rgba($hacker-green, 0.2));
     box-shadow: none;
   }
 
   .music-text-card {
     padding: 20px;
     background: rgba(0, 0, 0, 0.5);
-    border: 1px dashed #b5e853;
+    border: 1px dashed $hacker-green;
     border-radius: 4px;
   }
 
   .music-text-card h3 {
-    color: #b5e853;
+    color: $hacker-green;
   }
 
   /* Music reflection styles */
   .music-intro {
-    color: #eaeaea;
-    font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+    color: $hacker-text;
+    font-family: $hacker-font;
   }
 
   .music-entry-separator {
-    border-top: 1px dashed #b5e853;
+    border-top: 1px dashed $hacker-green;
     opacity: 0.6;
   }
 
   .music-stats {
     li {
-      color: #eaeaea;
+      color: $hacker-text;
       
       strong {
-        color: #b5e853;
+        color: $hacker-green;
       }
     }
   }

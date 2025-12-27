@@ -1,0 +1,17 @@
+/**
+ * Hacker Theme Variables
+ * 
+ * Centralized variables for hacker theme colors, fonts, and common values.
+ * Used by _hacker-theme.scss and _hacker-theme-overrides.scss
+ */
+
+// Hacker theme colors
+$hacker-green: #b5e853;
+$hacker-bg: #151515;
+$hacker-text: #eaeaea;
+$hacker-text-muted: #666;
+$hacker-border: #666;
+
+// Monospace font stack
+$hacker-font: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+
