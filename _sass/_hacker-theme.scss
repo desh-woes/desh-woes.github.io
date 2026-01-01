@@ -216,18 +216,6 @@ body.theme-hacker {
     display: none;
   }
 
-  article section ul li {
-    padding-left: 0;
-  }
-
-  article section ul li::before {
-    display: none;
-  }
-
-  article section ul li {
-    list-style-image: url('../assets/bullet.png');
-  }
-
   .pagination {
     padding: 2rem 0;
   }

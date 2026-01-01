@@ -405,5 +405,70 @@ body.theme-hacker {
     color: $hacker-text;
     box-shadow: none;
   }
+  
+  /* Archive page styles */
+  .archive-header {
+    border-bottom: 1px dashed $hacker-green;
+  }
+  
+  .archive-title {
+    color: $hacker-green;
+    font-weight: normal;
+    font-family: $hacker-font;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+                 0 0 5px rgba($hacker-green, 0.1),
+                 0 0 10px rgba($hacker-green, 0.1);
+    letter-spacing: -0.03em;
+  }
+  
+  .archive-subtitle {
+    color: $hacker-text;
+    font-family: $hacker-font;
+  }
+  
+  .archive-year-header {
+    border-bottom: 1px dashed $hacker-green;
+  }
+  
+  .archive-year-title {
+    color: $hacker-green;
+    font-weight: normal;
+    font-family: $hacker-font;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+                 0 0 5px rgba($hacker-green, 0.1);
+    letter-spacing: -0.03em;
+  }
+  
+  .archive-year-count {
+    color: $hacker-text-muted;
+    font-family: $hacker-font;
+  }
+  
+  .archive-post-item::before {
+    content: "> ";
+    color: $hacker-green;
+    font-weight: normal;
+    font-family: $hacker-font;
+  }
+  
+  .archive-post-date {
+    color: $hacker-text-muted;
+    font-family: $hacker-font;
+  }
+  
+  .archive-post-link {
+    color: $hacker-text;
+    font-family: $hacker-font;
+  }
+  
+  .archive-post-link:hover {
+    color: #63c0f5;
+    text-shadow: 0 0 5px rgba(99, 192, 245, 0.5);
+  }
+  
+  .archive-empty {
+    color: $hacker-text-muted;
+    font-family: $hacker-font;
+  }
 }
 
