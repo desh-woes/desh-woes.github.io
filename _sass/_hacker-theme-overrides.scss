@@ -106,6 +106,20 @@ body.theme-hacker {
     font-family: $hacker-font;
   }
 
+  .subscription-rss-link {
+    font-family: $hacker-font;
+  }
+
+  .rss-link {
+    color: $hacker-text;
+    text-decoration: none;
+  }
+
+  .rss-link:hover {
+    color: $hacker-green;
+    text-decoration: underline;
+  }
+
   .subscription-input {
     background: rgba(0, 0, 0, 0.5);
     border: 1px dashed $hacker-border;

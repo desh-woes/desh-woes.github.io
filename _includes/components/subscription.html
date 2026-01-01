@@ -16,6 +16,9 @@
   <div class="subscription-container">
     <h3 class="subscription-title">Subscribe to the blog</h3>
     <p class="subscription-description">Get notified when new posts are published</p>
+    <p class="subscription-rss-link">
+      <a href="{{ "/atom.xml" | prepend: site.baseurl | replace: '//', '/' }}" class="rss-link">📡 RSS Feed</a>
+    </p>
     
     <form class="subscription-form" id="subscription-form" action="https://buttondown.com/api/emails/embed-subscribe/adesina" method="POST">
       <input 
