@@ -1,0 +1,168 @@
+---
+layout: null
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="generator" content="Jekyll">
+  <title>Welcome - Desh-woes</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🍁</text></svg>">
+  <link rel="stylesheet" href="/css/main.css">
+  {% include blog-config.html %}
+  {% include theme-manager.html %}
+  {% include preferences.html %}
+</head>
+<body class="theme-modern">
+  <div class="welcome-container">
+    <div class="welcome-card">
+      <h1 class="welcome-title">Welcome</h1>
+      <p class="welcome-subtitle">Being the benevolent blogger that I am, you can choose your own theme and article order.</p>
+      
+      <form id="welcome-form">
+        <fieldset class="preference-section">
+          <legend class="preference-label">Choose your theme:</legend>
+          <div class="preference-options">
+            <div class="preference-option">
+              <input type="radio" id="theme-modern" name="theme" value="modern" checked>
+              <label for="theme-modern">Modern</label>
+            </div>
+            <div class="preference-option">
+              <input type="radio" id="theme-hacker" name="theme" value="hacker">
+              <label for="theme-hacker">Hacker</label>
+            </div>
+          </div>
+        </fieldset>
+        
+        <fieldset class="preference-section">
+          <legend class="preference-label">Article order:</legend>
+          <div class="preference-options">
+            <div class="preference-option">
+              <input type="radio" id="order-chronological" name="order" value="chronological" checked>
+              <label for="order-chronological">Chronological</label>
+            </div>
+            <div class="preference-option">
+              <input type="radio" id="order-random" name="order" value="random">
+              <label for="order-random">Random</label>
+            </div>
+          </div>
+        </fieldset>
+        
+        <button type="submit" class="continue-button">Continue to Blog</button>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    (function() {
+      'use strict';
+      
+      // Form data extraction layer
+      const FormDataExtractor = {
+        getSelectedTheme: function() {
+          const input = document.querySelector('input[name="theme"]:checked');
+          return input ? input.value : null;
+        },
+        
+        getSelectedOrder: function() {
+          const input = document.querySelector('input[name="order"]:checked');
+          return input ? input.value : null;
+        },
+        
+        validate: function() {
+          const theme = this.getSelectedTheme();
+          const order = this.getSelectedOrder();
+          if (!theme || !order) {
+            console.error('Theme or order selection not found');
+            return null;
+          }
+          return { theme, order };
+        }
+      };
+      
+      // Storage layer - handles saving preferences
+      const WelcomeStorage = {
+        save: function(data) {
+          if (!data) return false;
+          
+          try {
+            if (window.ThemeManager) {
+              window.ThemeManager.setTheme(data.theme);
+            } else if (window.BlogConfig) {
+              localStorage.setItem(window.BlogConfig.STORAGE_KEYS.THEME, data.theme);
+            } else {
+              localStorage.setItem('blog-theme', data.theme);
+            }
+            
+            if (window.BlogPreferences) {
+              window.BlogPreferences.setOrder(data.order);
+              window.BlogPreferences.markPreferencesSet();
+            } else if (window.BlogConfig) {
+              localStorage.setItem(window.BlogConfig.STORAGE_KEYS.ORDER, data.order);
+              localStorage.setItem(window.BlogConfig.STORAGE_KEYS.PREFERENCES_SET, 'true');
+            } else {
+              localStorage.setItem('blog-order', data.order);
+              localStorage.setItem('blog-preferences-set', 'true');
+            }
+            return true;
+          } catch (error) {
+            console.error('Error saving preferences:', error);
+            return false;
+          }
+        }
+      };
+      
+      // Navigation layer
+      const WelcomeNavigation = {
+        redirectToHome: function() {
+          window.location.href = '/';
+        }
+      };
+      
+      // UI event handlers
+      function setupThemePreview() {
+        document.querySelectorAll('input[name="theme"]').forEach(input => {
+          input.addEventListener('change', function() {
+            if (window.ThemeManager) {
+              window.ThemeManager.setTheme(this.value);
+            }
+          });
+        });
+      }
+      
+      function setupFormSubmission() {
+        const form = document.getElementById('welcome-form');
+        if (!form) return;
+        
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const data = FormDataExtractor.validate();
+          WelcomeStorage.save(data);
+          WelcomeNavigation.redirectToHome();
+        });
+      }
+      
+      function initWelcomePage() {
+        setupThemePreview();
+        setupFormSubmission();
+      }
+      
+      function init() {
+        setTimeout(initWelcomePage, 100);
+      }
+      
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+  
+  {% include theme-switcher.html %}
+</body>
+</html>
+

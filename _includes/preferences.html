@@ -1,0 +1,193 @@
+{% comment %}
+  Preferences Module
+  Handles reading and applying user preferences for article order.
+  Theme management is handled by theme-manager.html
+  Depends on blog-config.html for constants.
+{% endcomment %}
+
+<script>
+(function() {
+  'use strict';
+  
+  // Prevent duplicate initialization
+  if (window.BlogPreferences) {
+    return;
+  }
+  
+  function getConfig() {
+    if (window.BlogConfig) {
+      return {
+        ORDER_KEY: window.BlogConfig.STORAGE_KEYS.ORDER,
+        PREFERENCES_SET_KEY: window.BlogConfig.STORAGE_KEYS.PREFERENCES_SET,
+        DEFAULT_ORDER: window.BlogConfig.DEFAULTS.ORDER,
+        WELCOME_PATH: window.BlogConfig.PATHS.WELCOME
+      };
+    }
+    return {
+      ORDER_KEY: 'blog-order',
+      PREFERENCES_SET_KEY: 'blog-preferences-set',
+      DEFAULT_ORDER: 'chronological',
+      WELCOME_PATH: '/welcome.html'
+    };
+  }
+  
+  // Storage layer - handles persistence
+  const PreferenceStorage = {
+    getOrder: function() {
+      const cfg = getConfig();
+      try {
+        return localStorage.getItem(cfg.ORDER_KEY) || cfg.DEFAULT_ORDER;
+      } catch (e) {
+        return cfg.DEFAULT_ORDER;
+      }
+    },
+    
+    setOrder: function(order) {
+      const cfg = getConfig();
+      try {
+        localStorage.setItem(cfg.ORDER_KEY, order);
+      } catch (e) {
+        console.error('Error saving order preference:', e);
+      }
+    },
+    
+    arePreferencesSet: function() {
+      const cfg = getConfig();
+      try {
+        return localStorage.getItem(cfg.PREFERENCES_SET_KEY) === 'true';
+      } catch (e) {
+        return false;
+      }
+    },
+    
+    markPreferencesSet: function() {
+      const cfg = getConfig();
+      try {
+        localStorage.setItem(cfg.PREFERENCES_SET_KEY, 'true');
+      } catch (e) {
+        console.error('Error marking preferences as set:', e);
+      }
+    }
+  };
+  
+  // DOM layer - handles UI manipulation
+  const PreferenceDOM = {
+    shuffleArticleList: function() {
+      const articleList = document.querySelector('#main_content ul');
+      if (!articleList) return;
+      
+      const items = Array.from(articleList.children);
+      if (items.length === 0) return;
+      
+      // Fisher-Yates shuffle
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+      
+      articleList.innerHTML = '';
+      items.forEach(item => articleList.appendChild(item));
+    }
+  };
+  
+  // Routing layer - handles navigation
+  const PreferenceRouter = {
+    isHomePage: function() {
+      const pathname = window.location.pathname;
+      return pathname === '/' || 
+             pathname === '/index.html' ||
+             pathname.endsWith('/') ||
+             pathname === '/index';
+    },
+    
+    isWelcomePage: function() {
+      return window.location.pathname.includes('welcome');
+    },
+    
+    redirectToWelcome: function() {
+      const cfg = getConfig();
+      window.location.href = cfg.WELCOME_PATH;
+    }
+  };
+  
+  // Business logic layer - core preference management
+  window.BlogPreferences = {
+    /**
+     * Get stored article order preference
+     * @returns {string} Order type ('chronological' or 'random')
+     */
+    getOrder: function() {
+      return PreferenceStorage.getOrder();
+    },
+    
+    /**
+     * Check if preferences have been set
+     * @returns {boolean}
+     */
+    arePreferencesSet: function() {
+      return PreferenceStorage.arePreferencesSet();
+    },
+    
+    /**
+     * Set article order preference
+     * @param {string} order - Order type ('chronological' or 'random')
+     */
+    setOrder: function(order) {
+      PreferenceStorage.setOrder(order);
+    },
+    
+    /**
+     * Mark preferences as set
+     */
+    markPreferencesSet: function() {
+      PreferenceStorage.markPreferencesSet();
+    },
+    
+    /**
+     * Apply random ordering to article list
+     */
+    applyRandomOrder: function() {
+      PreferenceDOM.shuffleArticleList();
+    },
+    
+    /**
+     * Initialize preferences on page load
+     */
+    init: function() {
+      if (PreferenceRouter.isWelcomePage()) return;
+      
+      if (!this.arePreferencesSet() && PreferenceRouter.isHomePage()) {
+        PreferenceRouter.redirectToWelcome();
+        return;
+      }
+      
+      if (PreferenceRouter.isHomePage()) {
+        const applyOrder = () => {
+          if (this.getOrder() === 'random') {
+            this.applyRandomOrder();
+          }
+        };
+        
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', applyOrder);
+        } else {
+          applyOrder();
+        }
+      }
+    }
+  };
+  
+  function init() {
+    if (window.BlogPreferences) {
+      window.BlogPreferences.init();
+    }
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+

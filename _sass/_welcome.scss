@@ -1,0 +1,197 @@
+/**
+ * Welcome Page Styles
+ * 
+ * Styling for the welcome/preferences selection page.
+ * Supports both modern and hacker themes.
+ */
+
+@import "hacker-theme-variables";
+
+.welcome-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: $bg-primary;
+  color: $text-primary;
+}
+
+.welcome-card {
+  max-width: 600px;
+  width: 100%;
+  background: $bg-secondary;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: $text-primary;
+}
+
+.welcome-subtitle {
+  font-size: 1.1rem;
+  color: $text-secondary;
+  margin-bottom: 2.5rem;
+}
+
+.preference-section {
+  margin-bottom: 2rem;
+  border: none;
+  padding: 0;
+}
+
+.preference-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: $text-primary;
+  padding: 0;
+}
+
+.preference-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.preference-option {
+  flex: 1;
+  min-width: 140px;
+  
+  input[type="radio"] {
+    display: none;
+  }
+  
+  label {
+    display: block;
+    padding: 1rem 1.5rem;
+    background: $bg-primary;
+    border: 2px solid $border-color;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    color: $text-primary;
+    
+    &:hover {
+      border-color: $primary-light;
+      transform: translateY(-2px);
+    }
+  }
+  
+  input[type="radio"]:checked + label {
+    background: $primary;
+    color: white;
+    border-color: $primary;
+    box-shadow: 0 4px 12px rgba($primary, 0.3);
+  }
+}
+
+.continue-button {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: $primary;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+  
+  &:hover {
+    background: $primary-light;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba($primary, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Hacker theme overrides
+body.theme-hacker {
+  .welcome-container {
+    background: $hacker-bg url("/assets/bkg.png") 0 0;
+    color: $hacker-text;
+    font-family: $hacker-font;
+  }
+  
+  .welcome-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px dashed $hacker-green;
+    box-shadow: 0 0 10px rgba($hacker-green, 0.2);
+  }
+  
+  .welcome-title {
+    color: $hacker-green;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+                 0 0 5px rgba($hacker-green, 0.1),
+                 0 0 10px rgba($hacker-green, 0.1);
+  }
+  
+  .welcome-subtitle {
+    color: $hacker-text-muted;
+  }
+  
+  .preference-label {
+    color: $hacker-text;
+  }
+  
+  .preference-option label {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px dashed $hacker-border;
+    color: $hacker-text;
+    
+    &:hover {
+      border-color: $hacker-green;
+    }
+  }
+  
+  .preference-option input[type="radio"]:checked + label {
+    background: rgba($hacker-green, 0.2);
+    color: $hacker-green;
+    border-color: $hacker-green;
+    box-shadow: 0 0 10px rgba($hacker-green, 0.3);
+  }
+  
+  .continue-button {
+    background: rgba($hacker-green, 0.2);
+    color: $hacker-green;
+    border: 1px dashed $hacker-green;
+    
+    &:hover {
+      background: rgba($hacker-green, 0.3);
+      box-shadow: 0 0 15px rgba($hacker-green, 0.4);
+    }
+  }
+}
+
+// Mobile responsive
+@media (max-width: $mobile-breakpoint-max) {
+  .welcome-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .welcome-title {
+    font-size: 2rem;
+  }
+  
+  .preference-options {
+    flex-direction: column;
+  }
+  
+  .preference-option {
+    min-width: 100%;
+  }
+}
+

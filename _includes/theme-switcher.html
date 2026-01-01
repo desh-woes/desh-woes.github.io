@@ -1,76 +1,51 @@
+{% comment %}
+  Theme Switcher
+  Handles theme toggle button interactions.
+  Depends on theme-manager.html for theme operations.
+{% endcomment %}
+
 <script>
 (function() {
-  const THEME_KEY = 'blog-theme';
-  const THEME_MODERN = 'modern';
-  const THEME_HACKER = 'hacker';
-
-  function getStoredTheme() {
-    try {
-      return localStorage.getItem(THEME_KEY) || THEME_MODERN;
-    } catch (e) {
-      return THEME_MODERN;
-    }
-  }
-
-  function setStoredTheme(theme) {
-    try {
-      localStorage.setItem(THEME_KEY, theme);
-    } catch (e) {
-      // Ignore localStorage errors
-    }
-  }
-
-  function setToggleAttributes(toggle, title) {
-    if (toggle) {
-      toggle.setAttribute('title', title);
-      toggle.setAttribute('aria-label', title);
-    }
-  }
-
-  function applyTheme(theme) {
-    const body = document.body;
-    const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+  'use strict';
+  
+  function handleThemeToggle(event) {
+    if (!window.ThemeManager) return;
     
-    if (theme === THEME_HACKER) {
-      body.classList.add('theme-hacker');
-      body.classList.remove('theme-modern');
-      const title = 'Switch to modern theme';
-      themeToggles.forEach(toggle => setToggleAttributes(toggle, title));
-    } else {
-      body.classList.add('theme-modern');
-      body.classList.remove('theme-hacker');
-      const title = 'Switch to hacker theme';
-      themeToggles.forEach(toggle => setToggleAttributes(toggle, title));
-    }
-    setStoredTheme(theme);
-  }
-
-  function toggleTheme(event) {
-    const currentTheme = document.body.classList.contains('theme-hacker') 
-      ? THEME_HACKER 
-      : THEME_MODERN;
-    const newTheme = currentTheme === THEME_HACKER ? THEME_MODERN : THEME_HACKER;
-    applyTheme(newTheme);
+    window.ThemeManager.toggleTheme();
     
-    // Close mobile menu if theme was toggled from mobile button
-    if (event && event.target && event.target.closest('#theme-toggle-mobile')) {
-      if (window.closeMobileMenu) {
-        window.closeMobileMenu();
-      }
+    // Close mobile menu if toggled from mobile button
+    if (event?.target?.closest('#theme-toggle-mobile') && window.closeMobileMenu) {
+      window.closeMobileMenu();
     }
   }
-
-  // Initialize theme on page load
-  document.addEventListener('DOMContentLoaded', function() {
-    const storedTheme = getStoredTheme();
-    applyTheme(storedTheme);
-
-    // Add click handler to all theme toggle buttons
-    const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
-    themeToggles.forEach(toggle => {
-      toggle.addEventListener('click', toggleTheme);
+  
+  function initThemeSwitcher() {
+    if (!window.ThemeManager) {
+      setTimeout(initThemeSwitcher, 50);
+      return;
+    }
+    
+    const toggles = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+    if (toggles.length === 0) {
+      setTimeout(initThemeSwitcher, 100);
+      return;
+    }
+    
+    toggles.forEach(toggle => {
+      toggle.removeEventListener('click', handleThemeToggle);
+      toggle.addEventListener('click', handleThemeToggle);
     });
-  });
+  }
+  
+  function init() {
+    setTimeout(initThemeSwitcher, 100);
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 </script>
 

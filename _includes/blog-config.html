@@ -1,0 +1,54 @@
+{% comment %}
+  Blog Configuration
+  Shared constants and configuration values used across modules.
+  This ensures consistency and makes it easy to update values in one place.
+{% endcomment %}
+
+<script>
+(function() {
+  'use strict';
+  
+  // Prevent duplicate initialization
+  if (window.BlogConfig) {
+    return;
+  }
+  
+  /**
+   * Blog Configuration
+   * Centralized configuration constants
+   */
+  window.BlogConfig = {
+    // LocalStorage keys
+    STORAGE_KEYS: {
+      THEME: 'blog-theme',
+      ORDER: 'blog-order',
+      PREFERENCES_SET: 'blog-preferences-set'
+    },
+    
+    // Theme values
+    THEMES: {
+      MODERN: 'modern',
+      HACKER: 'hacker'
+    },
+    
+    // Order values
+    ORDERS: {
+      CHRONOLOGICAL: 'chronological',
+      RANDOM: 'random'
+    },
+    
+    // Default values
+    DEFAULTS: {
+      THEME: 'hacker',
+      ORDER: 'chronological'
+    },
+    
+    // Paths
+    PATHS: {
+      HOME: '/',
+      WELCOME: '/welcome.html'
+    }
+  };
+})();
+</script>
+

@@ -1,0 +1,179 @@
+{% comment %}
+  Theme Manager Module
+  Centralized theme management for the entire blog.
+  Handles theme storage, retrieval, and application.
+  Used by theme-switcher, preferences, and welcome page.
+  Depends on blog-config.html for constants.
+{% endcomment %}
+
+<script>
+(function() {
+  'use strict';
+  
+  // Prevent duplicate initialization
+  if (window.ThemeManager) {
+    return;
+  }
+  
+  // Get constants from BlogConfig if available, otherwise use defaults
+  function getConfig() {
+    if (window.BlogConfig) {
+      return {
+        THEME_KEY: window.BlogConfig.STORAGE_KEYS.THEME,
+        THEME_MODERN: window.BlogConfig.THEMES.MODERN,
+        THEME_HACKER: window.BlogConfig.THEMES.HACKER,
+        DEFAULT_THEME: window.BlogConfig.DEFAULTS.THEME
+      };
+    }
+    return {
+      THEME_KEY: 'blog-theme',
+      THEME_MODERN: 'modern',
+      THEME_HACKER: 'hacker',
+      DEFAULT_THEME: 'modern'
+    };
+  }
+  
+  // Storage layer - handles persistence
+  const ThemeStorage = {
+    get: function() {
+      const cfg = getConfig();
+      try {
+        return localStorage.getItem(cfg.THEME_KEY) || cfg.DEFAULT_THEME;
+      } catch (e) {
+        return cfg.DEFAULT_THEME;
+      }
+    },
+    
+    set: function(theme) {
+      const cfg = getConfig();
+      try {
+        localStorage.setItem(cfg.THEME_KEY, theme);
+      } catch (e) {
+        console.error('Error saving theme:', e);
+      }
+    }
+  };
+  
+  // DOM layer - handles UI updates
+  const ThemeDOM = {
+    apply: function(theme) {
+      const cfg = getConfig();
+      const body = document.body;
+      if (!body) return;
+      
+      const isHacker = theme === cfg.THEME_HACKER;
+      body.classList.toggle('theme-hacker', isHacker);
+      body.classList.toggle('theme-modern', !isHacker);
+    },
+    
+    getCurrent: function() {
+      const cfg = getConfig();
+      const body = document.body;
+      if (!body) return cfg.DEFAULT_THEME;
+      return body.classList.contains('theme-hacker') ? cfg.THEME_HACKER : cfg.THEME_MODERN;
+    },
+    
+    updateToggleButtons: function(theme) {
+      const cfg = getConfig();
+      const toggles = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+      const title = theme === cfg.THEME_HACKER 
+        ? 'Switch to modern theme' 
+        : 'Switch to hacker theme';
+      
+      toggles.forEach(toggle => {
+        if (toggle) {
+          toggle.setAttribute('title', title);
+          toggle.setAttribute('aria-label', title);
+        }
+      });
+    }
+  };
+  
+  // Business logic layer - core theme management
+  window.ThemeManager = {
+    /**
+     * Get the current stored theme
+     * @returns {string} Theme name ('modern' or 'hacker')
+     */
+    getTheme: function() {
+      return ThemeStorage.get();
+    },
+    
+    /**
+     * Validate theme value
+     * @private
+     */
+    _validateTheme: function(theme) {
+      const cfg = getConfig();
+      if (theme !== cfg.THEME_MODERN && theme !== cfg.THEME_HACKER) {
+        console.warn('Invalid theme:', theme);
+        return cfg.DEFAULT_THEME;
+      }
+      return theme;
+    },
+    
+    /**
+     * Set and apply a theme
+     * @param {string} theme - Theme name ('modern' or 'hacker')
+     */
+    setTheme: function(theme) {
+      theme = this._validateTheme(theme);
+      ThemeStorage.set(theme);
+      ThemeDOM.apply(theme);
+      ThemeDOM.updateToggleButtons(theme);
+    },
+    
+    /**
+     * Apply theme to the document (without saving)
+     * @param {string} theme - Theme name ('modern' or 'hacker')
+     */
+    applyTheme: function(theme) {
+      theme = this._validateTheme(theme);
+      ThemeDOM.apply(theme);
+      ThemeDOM.updateToggleButtons(theme);
+    },
+    
+    /**
+     * Toggle between themes
+     * @returns {string} The new theme after toggling
+     */
+    toggleTheme: function() {
+      const cfg = getConfig();
+      const currentTheme = ThemeDOM.getCurrent();
+      const newTheme = currentTheme === cfg.THEME_HACKER ? cfg.THEME_MODERN : cfg.THEME_HACKER;
+      this.setTheme(newTheme);
+      return newTheme;
+    },
+    
+    /**
+     * Get the currently applied theme from DOM
+     * @returns {string} Theme name ('modern' or 'hacker')
+     */
+    getCurrentTheme: function() {
+      return ThemeDOM.getCurrent();
+    },
+    
+    /**
+     * Initialize theme on page load
+     */
+    init: function() {
+      const storedTheme = ThemeStorage.get();
+      this.applyTheme(storedTheme);
+    }
+  };
+  
+  // Auto-initialize on DOM ready
+  function init() {
+    if (window.ThemeManager) {
+      window.ThemeManager.init();
+    }
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
