@@ -8,7 +8,7 @@ layout: default
           <h2><a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a></h2>
           <div class="by-line">
             <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>
-            {% include reading-time.html content=post.content %}
+            {% include post/reading-time.html content=post.content %}
           </div>
           <p>{{ post.content | strip_html | truncatewords:50 }}</p>
       </li>

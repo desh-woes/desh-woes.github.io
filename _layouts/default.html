@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include head.html %}
+{% include layout/head.html %}
 
 <body class="theme-modern">
   <div id="wrapper">
-    {% include header.html %}
+    {% include layout/header.html %}
     <div class="container">
       <section id="main_content">
         {{ content }}
@@ -32,16 +32,16 @@
     <span class="page-item">&raquo;</span>
     {% endif %}
   </div>
-  {% endif %} {% include footer.html %}
+  {% endif %} {% include layout/footer.html %}
 
-  {% include blog-config.html %}
-  {% include theme-manager.html %}
-  {% include preferences.html %}
-  {% include theme-switcher.html %}
-  {% include search-modal-only.html %}
+  {% include features/blog-config.html %}
+  {% include features/theme-manager.html %}
+  {% include features/preferences.html %}
+  {% include features/theme-switcher.html %}
+  {% include search/search-modal-only.html %}
 
   {% if site.google_analytics %}
-    {% include analytics.html %}
+    {% include components/analytics.html %}
   {% endif %}
 </body>
 

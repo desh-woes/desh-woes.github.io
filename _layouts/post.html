@@ -6,12 +6,12 @@ layout: default
   <h2>{{ page.title }}</h2>
   <div class="by-line">
     <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time>
-    {% include reading-time.html content=content %}
+    {% include post/reading-time.html content=content %}
   </div>
   {{ content }}
   
-  {% include social-sharing.html %}
+  {% include components/social-sharing.html %}
 </article>
 
-{% include post-navigation.html %}
-{% include post-enhancements.html %}
+{% include post/post-navigation.html %}
+{% include post/post-enhancements.html %}
