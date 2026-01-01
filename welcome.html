@@ -121,6 +121,45 @@ layout: null
         }
       };
       
+      // UI synchronization layer
+      const WelcomeUISync = {
+        syncThemeRadio: function() {
+          if (!window.ThemeManager) {
+            setTimeout(() => this.syncThemeRadio(), 50);
+            return;
+          }
+          
+          const storedTheme = window.ThemeManager.getTheme();
+          const themeInput = document.querySelector(`input[name="theme"][value="${storedTheme}"]`);
+          
+          if (themeInput) {
+            themeInput.checked = true;
+            // Ensure displayed theme matches the selected button
+            // Use applyTheme to avoid saving (since we're just syncing UI)
+            window.ThemeManager.applyTheme(storedTheme);
+          }
+        },
+        
+        syncOrderRadio: function() {
+          if (!window.BlogPreferences) {
+            setTimeout(() => this.syncOrderRadio(), 50);
+            return;
+          }
+          
+          const storedOrder = window.BlogPreferences.getOrder();
+          const orderInput = document.querySelector(`input[name="order"][value="${storedOrder}"]`);
+          
+          if (orderInput) {
+            orderInput.checked = true;
+          }
+        },
+        
+        syncAll: function() {
+          this.syncThemeRadio();
+          this.syncOrderRadio();
+        }
+      };
+      
       // UI event handlers
       function setupThemePreview() {
         document.querySelectorAll('input[name="theme"]').forEach(input => {
@@ -146,8 +185,15 @@ layout: null
       }
       
       function initWelcomePage() {
+        // Setup event handlers first
         setupThemePreview();
         setupFormSubmission();
+        
+        // Then sync UI with stored preferences
+        // Use a small delay to ensure ThemeManager has initialized
+        setTimeout(() => {
+          WelcomeUISync.syncAll();
+        }, 150);
       }
       
       function init() {
