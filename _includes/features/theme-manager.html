@@ -64,6 +64,9 @@
       const isHacker = theme === cfg.THEME_HACKER;
       body.classList.toggle('theme-hacker', isHacker);
       body.classList.toggle('theme-modern', !isHacker);
+      
+      // Update favicon based on theme
+      this.updateFavicon(theme);
     },
     
     getCurrent: function() {
@@ -86,6 +89,13 @@
           toggle.setAttribute('aria-label', title);
         }
       });
+    },
+    
+    updateFavicon: function(theme) {
+      // Use shared favicon update function if available, otherwise fallback
+      if (window.updateFavicon) {
+        window.updateFavicon(theme);
+      }
     }
   };
   
