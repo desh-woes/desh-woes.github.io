@@ -23,20 +23,31 @@
   function applyTheme(theme) {
     const body = document.body;
     const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
     
     if (theme === THEME_HACKER) {
       body.classList.add('theme-hacker');
       body.classList.remove('theme-modern');
+      const title = 'Switch to modern theme';
       if (themeToggle) {
-        themeToggle.setAttribute('title', 'Switch to modern theme');
-        themeToggle.setAttribute('aria-label', 'Switch to modern theme');
+        themeToggle.setAttribute('title', title);
+        themeToggle.setAttribute('aria-label', title);
+      }
+      if (themeToggleMobile) {
+        themeToggleMobile.setAttribute('title', title);
+        themeToggleMobile.setAttribute('aria-label', title);
       }
     } else {
       body.classList.add('theme-modern');
       body.classList.remove('theme-hacker');
+      const title = 'Switch to hacker theme';
       if (themeToggle) {
-        themeToggle.setAttribute('title', 'Switch to hacker theme');
-        themeToggle.setAttribute('aria-label', 'Switch to hacker theme');
+        themeToggle.setAttribute('title', title);
+        themeToggle.setAttribute('aria-label', title);
+      }
+      if (themeToggleMobile) {
+        themeToggleMobile.setAttribute('title', title);
+        themeToggleMobile.setAttribute('aria-label', title);
       }
     }
     setStoredTheme(theme);
@@ -55,10 +66,16 @@
     const storedTheme = getStoredTheme();
     applyTheme(storedTheme);
 
-    // Add click handler to theme toggle button
+    // Add click handler to theme toggle buttons (desktop and mobile)
     const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    
     if (themeToggle) {
       themeToggle.addEventListener('click', toggleTheme);
+    }
+    
+    if (themeToggleMobile) {
+      themeToggleMobile.addEventListener('click', toggleTheme);
     }
   });
 })();

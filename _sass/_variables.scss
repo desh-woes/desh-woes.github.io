@@ -1,0 +1,20 @@
+/**
+ * Global SCSS Variables
+ * 
+ * Shared variables used across the theme for consistency.
+ * Includes breakpoints, spacing, and component dimensions.
+ * 
+ * Usage:
+ * - Imported by base.scss and component partials
+ * - Can be overridden in theme-specific files
+ */
+
+// Responsive Breakpoints
+$mobile-breakpoint: 768px !default;
+$mobile-breakpoint-max: $mobile-breakpoint !default;
+$desktop-breakpoint-min: $mobile-breakpoint + 1px !default;
+
+// Component Dimensions
+$mobile-menu-button-height: 2.5rem !default;
+$mobile-menu-toggle-size: 2.5rem !default;
+

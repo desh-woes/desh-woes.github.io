@@ -17,12 +17,15 @@
  * 
  * Dependencies:
  * - _default_colors.scss (color variables)
+ * - _mixins.scss (reusable mixins)
  * - rouge-base16-dark (syntax highlighting)
- * - Component partials (article, reading-time, post-list, post-navigation, social-sharing)
+ * - Component partials (article, reading-time, post-list, post-navigation, social-sharing, mobile-menu)
  */
 
 @import "rouge-base16-dark";
 @import "default_colors";
+@import "variables";
+@import "mixins";
 
 // Component partials
 @import "article";
@@ -33,6 +36,7 @@
 @import "subscription";
 @import "music-reflection";
 @import "search";
+@import "mobile-menu";
 
 $body-background: $bg-primary !default;
 $body-foreground: $text-primary !default;
@@ -112,6 +116,7 @@ header > div {
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+  position: relative;
 }
 
 .header-links {
@@ -120,6 +125,7 @@ header > div {
   align-items: baseline;
   flex-wrap: wrap;
 }
+
 
 .header-link {
   display: inline-block;
@@ -164,30 +170,20 @@ header h1 a {
 
 /* Theme Toggle Button */
 .theme-toggle {
-  background: transparent;
-  border: 1px solid $border-color;
-  border-radius: 6px;
+  @include header-button-base;
   padding: 0 0.5rem;
-  cursor: pointer;
-  color: $text-secondary;
   font-size: 1.1rem;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
   line-height: 1.3;
   height: 1.3em;
 }
 
 .theme-toggle:hover {
-  background: $bg-tertiary;
-  border-color: $primary;
-  color: $primary-light;
+  @include header-button-hover;
 }
 
 .theme-toggle:focus {
-  outline: 2px solid $primary;
-  outline-offset: 2px;
+  @include header-button-focus;
 }
 
 .theme-icon {
@@ -625,7 +621,7 @@ footer a:hover {
 }
 
 /* --- Mobile Responsiveness --- */
-@media (max-width: 768px) {
+@media (max-width: $mobile-breakpoint-max) {
   body {
     font-size: 16px;
   }
@@ -641,26 +637,20 @@ footer a:hover {
   }
 
   header > div {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
     gap: 1rem;
+    justify-content: space-between;
   }
 
   header h1 {
     font-size: 1.25rem;
+    flex: 1;
   }
 
+  /* Hide desktop links on mobile */
   .header-links {
-    gap: 1.5rem;
-  }
-
-  .header-link h2 {
-    font-size: 0.95rem;
-  }
-
-  .theme-toggle {
-    font-size: 1rem;
-    padding: 0.4rem 0.6rem;
+    display: none;
   }
 
   #main_content h1 {

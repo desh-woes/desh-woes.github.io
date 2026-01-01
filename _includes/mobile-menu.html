@@ -1,0 +1,93 @@
+{% comment %}
+  Mobile Menu JavaScript Controller
+  
+  Handles mobile menu toggle functionality with keyboard and click handlers.
+  Works in conjunction with _sass/_mobile-menu.scss for styling.
+  
+  Features:
+  - Toggle menu on button click
+  - Close menu on navigation link click
+  - Close menu on Escape key
+  - Close menu on backdrop click
+  - Prevents body scroll when menu is open
+  
+  Dependencies: mobile-menu-toggle button, mobile-menu container in header.html
+{% endcomment %}
+
+<script>
+(function() {
+  'use strict';
+  
+  /**
+   * Mobile Menu Controller
+   * Handles mobile menu toggle functionality with keyboard and click handlers
+   */
+  const SELECTORS = {
+    toggle: 'mobile-menu-toggle',
+    menu: 'mobile-menu'
+  };
+  
+  const KEYS = {
+    escape: 'Escape'
+  };
+  
+  function initMobileMenu() {
+    const menuToggle = document.getElementById(SELECTORS.toggle);
+    const mobileMenu = document.getElementById(SELECTORS.menu);
+    
+    if (!menuToggle || !mobileMenu) return;
+    
+    function isMenuOpen() {
+      return menuToggle.getAttribute('aria-expanded') === 'true';
+    }
+    
+    function setMenuState(isOpen) {
+      menuToggle.setAttribute('aria-expanded', isOpen);
+      mobileMenu.setAttribute('aria-hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+    
+    function toggleMenu() {
+      setMenuState(!isMenuOpen());
+    }
+    
+    function closeMenu() {
+      if (isMenuOpen()) {
+        setMenuState(false);
+      }
+    }
+    
+    // Toggle menu on button click
+    menuToggle.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking on navigation links
+    const menuLinks = mobileMenu.querySelectorAll('a');
+    menuLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+    
+    // Close menu on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === KEYS.escape && isMenuOpen()) {
+        e.preventDefault();
+        closeMenu();
+      }
+    });
+    
+    // Close menu when clicking on backdrop (menu container itself)
+    mobileMenu.addEventListener('click', function(e) {
+      if (e.target === mobileMenu) {
+        closeMenu();
+      }
+    });
+  }
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+  } else {
+    initMobileMenu();
+  }
+})();
+</script>
+

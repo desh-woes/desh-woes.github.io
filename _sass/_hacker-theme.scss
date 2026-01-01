@@ -11,6 +11,8 @@
 
 @import "hacker-theme-variables";
 @import "hacker-theme-overrides";
+@import "variables";
+@import "mixins";
 
 body.theme-hacker {
   background: $hacker-bg url("../assets/bkg.png") 0 0;
@@ -29,7 +31,7 @@ body.theme-hacker {
     border-bottom: 1px dashed $hacker-green;
     padding: 20px;
     margin: 0 0 40px 0;
-    position: static;
+    position: relative;
     box-shadow: none;
     backdrop-filter: none;
   }
@@ -76,12 +78,12 @@ body.theme-hacker {
     height: 1.5em;
     border-color: $hacker-text-muted;
     color: $hacker-text-muted;
-  }
-
-  .theme-toggle:hover {
-    background: rgba(0, 0, 0, 0.3);
-    border-color: $hacker-green;
-    color: $hacker-green;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: $hacker-green;
+      color: $hacker-green;
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -292,6 +294,64 @@ body.theme-hacker {
         color: $hacker-green;
       }
     }
+  }
+
+  /* Mobile Menu Styles - Hacker Theme Overrides */
+  .mobile-menu-toggle {
+    border-color: $hacker-text-muted;
+    color: $hacker-text-muted;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: $hacker-green;
+      color: $hacker-green;
+    }
+  }
+
+  .mobile-menu {
+    background: rgba(0, 0, 0, 0.95);
+    border-bottom: 1px dashed $hacker-green;
+    box-shadow: none;
+  }
+
+  .mobile-menu-content .header-link {
+    border-bottom: 1px dashed $hacker-green;
+    
+    /* Remove border from last link to avoid double line */
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  .mobile-menu-content .header-link h2 {
+    color: $hacker-text-muted;
+    font-family: $hacker-font;
+    
+    &:hover {
+      color: $hacker-green;
+    }
+  }
+
+  .mobile-menu-actions {
+    border-top: 1px dashed $hacker-green;
+  }
+
+  .mobile-menu-actions .search-toggle,
+  .mobile-menu-actions .theme-toggle {
+    border-color: $hacker-text-muted;
+    color: $hacker-text-muted;
+    /* Height and alignment are handled by the mixin */
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: $hacker-green;
+      color: $hacker-green;
+    }
+  }
+
+  .theme-label {
+    color: $hacker-text-muted;
+    font-family: $hacker-font;
   }
 }
 

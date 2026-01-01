@@ -1,0 +1,163 @@
+/**
+ * Mobile Menu Component
+ * 
+ * Responsive mobile navigation menu with hamburger toggle.
+ * Includes toggle button, dropdown menu, and action buttons.
+ * 
+ * Dependencies: _variables.scss, _mixins.scss
+ * Used in: base.scss, _hacker-theme.scss
+ */
+
+@import "variables";
+@import "mixins";
+
+// Mobile menu constants
+$mobile-menu-max-height: 500px !default;
+$mobile-menu-transition-duration: 0.3s !default;
+$mobile-menu-content-padding: 1.5rem 20px !default;
+$mobile-menu-link-padding: 0.75rem 0 !default;
+
+/* Mobile Menu Toggle Button - Hidden on desktop, shown on mobile */
+.mobile-menu-toggle {
+  @include header-button-base;
+  display: none; /* Hidden by default on desktop - must come after mixin */
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5rem;
+  width: $mobile-menu-toggle-size;
+  height: $mobile-menu-toggle-size;
+  position: relative;
+  z-index: 101;
+}
+
+/* Explicitly hide on desktop */
+@media (min-width: $desktop-breakpoint-min) {
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+}
+
+/* Show hamburger menu only on mobile devices */
+@media (max-width: $mobile-breakpoint-max) {
+  .mobile-menu-toggle {
+    display: flex !important; /* Ensure it shows on mobile */
+  }
+}
+
+.mobile-menu-toggle:hover {
+  @include header-button-hover;
+}
+
+.mobile-menu-toggle:focus {
+  @include header-button-focus;
+}
+
+/* Hamburger Icon */
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 20px;
+  height: 16px;
+}
+
+.hamburger-icon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Hamburger to X animation */
+.mobile-menu-toggle[aria-expanded="true"] .hamburger-icon span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-toggle[aria-expanded="true"] .hamburger-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle[aria-expanded="true"] .hamburger-icon span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Menu Dropdown - Hidden on desktop, shown on mobile */
+.mobile-menu {
+  display: none; /* Hidden by default on desktop */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: $bg-secondary;
+  border-bottom: 1px solid $border-color;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height $mobile-menu-transition-duration ease, 
+              opacity $mobile-menu-transition-duration ease;
+  opacity: 0;
+}
+
+/* Show mobile menu container on mobile (content visibility controlled by aria-hidden) */
+@media (max-width: $mobile-breakpoint-max) {
+  .mobile-menu {
+    display: block;
+  }
+}
+
+.mobile-menu[aria-hidden="false"] {
+  display: block;
+  max-height: $mobile-menu-max-height;
+  opacity: 1;
+}
+
+/* Mobile Menu Content */
+.mobile-menu-content {
+  padding: $mobile-menu-content-padding;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobile-menu-content .header-link {
+  display: block;
+  padding: $mobile-menu-link-padding;
+  border-bottom: 1px solid $border-color;
+}
+
+.mobile-menu-content .header-link:last-of-type {
+  border-bottom: none;
+}
+
+.mobile-menu-content .header-link h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Mobile Menu Actions (Search & Theme Toggle) */
+.mobile-menu-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid $border-color;
+}
+
+.mobile-menu-actions .search-toggle,
+.mobile-menu-actions .theme-toggle {
+  @include mobile-menu-action-button;
+  /* Height and alignment are handled by the mixin */
+}
+
+.mobile-menu-actions .theme-toggle {
+  gap: 0.5rem;
+}
+
+.theme-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+

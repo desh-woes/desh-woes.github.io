@@ -1,0 +1,59 @@
+/**
+ * SCSS Mixins
+ * 
+ * Reusable mixins for common patterns across the theme.
+ * Reduces code duplication and improves maintainability.
+ * 
+ * Dependencies: _variables.scss
+ */
+
+@import "variables";
+
+/**
+ * Base button styles mixin
+ * Used for header buttons (search, theme toggle, mobile menu toggle)
+ */
+@mixin header-button-base {
+  background: transparent;
+  border: 1px solid $border-color;
+  border-radius: 6px;
+  cursor: pointer;
+  color: $text-secondary;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+/**
+ * Header button hover state
+ */
+@mixin header-button-hover {
+  background: $bg-tertiary;
+  border-color: $primary;
+  color: $primary-light;
+}
+
+/**
+ * Header button focus state
+ */
+@mixin header-button-focus {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+}
+
+/**
+ * Mobile menu action button styles
+ * Ensures consistent sizing for search and theme buttons in mobile menu
+ */
+@mixin mobile-menu-action-button {
+  flex: 1;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  justify-content: center;
+  min-height: $mobile-menu-button-height;
+  align-items: center;
+}
+

@@ -5,32 +5,23 @@
  * Works with both modern and hacker themes.
  */
 
+@import "variables";
+@import "mixins";
+
 /* Search Toggle Button */
 .search-toggle {
-  background: transparent;
-  border: 1px solid $border-color;
-  border-radius: 6px;
+  @include header-button-base;
   padding: 0.4rem 0.75rem;
-  cursor: pointer;
-  color: $text-secondary;
   font-size: 0.95rem;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
   gap: 0.5rem;
-  font-weight: 500;
-  font-family: inherit;
 }
 
 .search-toggle:hover {
-  background: $bg-tertiary;
-  border-color: $primary;
-  color: $primary-light;
+  @include header-button-hover;
 }
 
 .search-toggle:focus {
-  outline: 2px solid $primary;
-  outline-offset: 2px;
+  @include header-button-focus;
 }
 
 .search-icon {
@@ -69,7 +60,7 @@
 }
 
 /* Hide label and shortcut on mobile for compact view */
-@media (max-width: 768px) {
+@media (max-width: $mobile-breakpoint-max) {
   .search-toggle {
     padding: 0 0.5rem;
     min-width: 2rem;
@@ -87,6 +78,15 @@
   .search-icon {
     width: 18px;
     height: 18px;
+  }
+  
+  /* Show label in mobile menu dropdown */
+  .mobile-menu-actions .search-toggle {
+    min-width: auto;
+  }
+  
+  .mobile-menu-actions .search-label {
+    display: inline-block;
   }
 }
 
@@ -306,7 +306,7 @@
 }
 
 /* Mobile Responsiveness */
-@media (max-width: 768px) {
+@media (max-width: $mobile-breakpoint-max) {
   .search-modal-content {
     width: 95%;
     margin: 5vh auto;
