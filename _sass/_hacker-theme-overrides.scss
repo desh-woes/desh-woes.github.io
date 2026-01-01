@@ -290,5 +290,151 @@ body.theme-hacker {
       text-shadow: 0 0 5px rgba($hacker-green, 0.5);
     }
   }
+  
+  /* Search component */
+  .search-toggle {
+    border-color: $hacker-text-muted;
+    color: $hacker-text-muted;
+    font-family: $hacker-font;
+    border-radius: 0;
+    font-weight: normal;
+  }
+
+  .search-toggle:hover {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: $hacker-green;
+    color: $hacker-green;
+    text-shadow: 0 0 5px rgba($hacker-green, 0.5);
+  }
+
+  .search-toggle:hover .search-shortcut {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: $hacker-green;
+    color: $hacker-green;
+    text-shadow: 0 0 5px rgba($hacker-green, 0.5);
+    box-shadow: 0 0 5px rgba($hacker-green, 0.2);
+  }
+
+  .search-shortcut {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px dashed $hacker-border;
+    border-radius: 0;
+    color: $hacker-text-muted;
+    font-family: $hacker-font;
+    box-shadow: none;
+  }
+
+  .search-modal-overlay {
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: none;
+  }
+
+  .search-modal-content {
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px dashed $hacker-green;
+    border-radius: 0;
+    box-shadow: 0 0 20px rgba($hacker-green, 0.3);
+  }
+
+  .search-input-wrapper {
+    border-bottom: 1px dashed $hacker-green;
+  }
+
+  .search-input {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px dashed $hacker-border;
+    border-radius: 0;
+    color: $hacker-text;
+    font-family: $hacker-font;
+    box-shadow: none;
+  }
+
+  .search-input:focus {
+    border-color: $hacker-green;
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 5px rgba($hacker-green, 0.3);
+    outline: none;
+  }
+
+  .search-input::placeholder {
+    color: $hacker-text-muted;
+  }
+
+  .search-close {
+    color: $hacker-text-muted;
+    border-radius: 0;
+  }
+
+  .search-close:hover {
+    color: $hacker-green;
+    background: rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0 5px rgba($hacker-green, 0.5);
+  }
+
+  .search-result-item {
+    border: 1px dashed transparent;
+    border-radius: 0;
+  }
+
+  .search-result-item:hover,
+  .search-result-item.selected {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: $hacker-green;
+    transform: translateX(2px);
+    box-shadow: 0 0 5px rgba($hacker-green, 0.2);
+  }
+
+  .search-result-title {
+    color: $hacker-green;
+    font-family: $hacker-font;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1),
+                 0 0 5px rgba($hacker-green, 0.1);
+  }
+
+  .search-result-item:hover .search-result-title,
+  .search-result-item.selected .search-result-title {
+    text-shadow: 0 0 5px rgba($hacker-green, 0.5);
+  }
+
+  .search-result-meta time {
+    color: $hacker-text-muted;
+    font-family: $hacker-font;
+  }
+
+  .search-result-excerpt {
+    color: $hacker-text;
+    font-family: $hacker-font;
+  }
+
+  .search-result-excerpt mark {
+    background: rgba($hacker-green, 0.2);
+    color: $hacker-green;
+    border: 1px dashed $hacker-green;
+    text-shadow: 0 0 5px rgba($hacker-green, 0.3);
+  }
+
+  .search-empty {
+    color: $hacker-text-muted;
+    font-family: $hacker-font;
+  }
+
+  .search-footer {
+    border-top: 1px dashed $hacker-green;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .search-hint {
+    color: $hacker-text-muted;
+    font-family: $hacker-font;
+  }
+
+  .search-hint kbd {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px dashed $hacker-border;
+    border-radius: 0;
+    color: $hacker-text;
+    font-family: $hacker-font;
+    box-shadow: none;
+  }
 }
 

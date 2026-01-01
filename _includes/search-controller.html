@@ -1,0 +1,287 @@
+{% comment %}
+  Search Controller Module
+  Orchestrates search functionality: modal management, event handling, and coordination.
+  Depends on SearchEngine and SearchUI modules.
+{% endcomment %}
+
+<script>
+(function() {
+  'use strict';
+  
+  if (!window.SearchController) {
+    window.SearchController = {};
+  }
+  
+  // State
+  let searchIndex = [];
+  let isInitialized = false;
+  let elements = null; // Cached DOM element references
+  let indexLoadPromise = null; // Promise tracking index load state
+  
+  /**
+   * Search Controller - Main orchestration
+   */
+  window.SearchController = {
+    /**
+     * Initialize search functionality
+     */
+    init: function() {
+      if (isInitialized) return;
+      
+      // Check dependencies
+      if (!window.SearchEngine || !window.SearchUI) {
+        console.error('Search: Required modules (SearchEngine, SearchUI) not loaded');
+        return;
+      }
+      
+      elements = this._getElements();
+      if (!this._validateElements(elements)) {
+        console.error('Search: Required DOM elements not found');
+        return;
+      }
+      
+      // Initialize UI with results container only (it's all that's needed)
+      window.SearchUI.init({
+        resultsContainer: elements.resultsContainer
+      });
+      
+      // Start loading search index (returns promise for later use)
+      indexLoadPromise = this._loadSearchIndex();
+      
+      // Setup event listeners
+      this._setupEventListeners();
+      
+      isInitialized = true;
+    },
+    
+    /**
+     * Get DOM element references (cached after first call)
+     * @private
+     */
+    _getElements: function() {
+      if (elements) return elements;
+      
+      return {
+        toggle: document.getElementById('search-toggle'),
+        modal: document.getElementById('search-modal'),
+        overlay: document.getElementById('search-overlay'),
+        input: document.getElementById('search-input'),
+        close: document.getElementById('search-close'),
+        resultsContainer: document.getElementById('search-results')
+      };
+    },
+    
+    /**
+     * Validate required elements exist
+     * @private
+     */
+    _validateElements: function(elements) {
+      return elements.toggle && elements.modal && elements.overlay && 
+             elements.input && elements.close && elements.resultsContainer;
+    },
+    
+    /**
+     * Load search index from JSON file
+     * Returns a promise that resolves when the index is loaded
+     * @private
+     * @returns {Promise} Promise that resolves when index is loaded
+     */
+    _loadSearchIndex: async function() {
+      // If already loaded, return resolved promise
+      if (searchIndex.length > 0) {
+        return Promise.resolve();
+      }
+      
+      // If already loading, return the existing promise
+      if (indexLoadPromise) {
+        return indexLoadPromise;
+      }
+      
+      // Create new load promise
+      indexLoadPromise = (async () => {
+        const config = window.SEARCH_CONFIG || {};
+        const indexUrl = config.indexUrl || '/search.json';
+        
+        try {
+          const response = await fetch(indexUrl);
+          if (!response.ok) throw new Error('Failed to load search index');
+          searchIndex = await response.json();
+        } catch (error) {
+          console.error('Error loading search index:', error);
+          searchIndex = [];
+          throw error; // Re-throw so callers know it failed
+        }
+      })();
+      
+      return indexLoadPromise;
+    },
+    
+    /**
+     * Setup all event listeners
+     * @private
+     */
+    _setupEventListeners: function() {
+      // Button and modal controls
+      elements.toggle.addEventListener('click', () => this.openSearch());
+      elements.overlay.addEventListener('click', () => this.closeSearch());
+      elements.close.addEventListener('click', () => this.closeSearch());
+      
+      // Search input
+      elements.input.addEventListener('input', () => this.handleSearch());
+      
+      // Keyboard shortcuts
+      document.addEventListener('keydown', (e) => this._handleKeyboard(e));
+    },
+    
+    /**
+     * Handle keyboard events
+     * @private
+     */
+    _handleKeyboard: function(e) {
+      if (!elements || !elements.modal) return;
+      
+      const isSearchOpen = elements.modal.classList.contains('active');
+      
+      // Open search with '/' key (but not when typing in an input or when Shift is pressed)
+      if (e.key === '/' && !e.shiftKey && !e.target.matches('input, textarea')) {
+        e.preventDefault();
+        this.openSearch();
+        return;
+      }
+      
+      // Only handle keyboard navigation when search is open
+      if (!isSearchOpen) return;
+      
+      // Close with Esc
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        this.closeSearch();
+        return;
+      }
+      
+      // Navigate with arrow keys
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        window.SearchUI.navigateResults('up');
+        return;
+      }
+      
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        window.SearchUI.navigateResults('down');
+        return;
+      }
+      
+      // Open selected result with Enter (but not when typing in input)
+      if (e.key === 'Enter' && e.target !== elements.input) {
+        e.preventDefault();
+        window.SearchUI.openSelectedResult();
+        return;
+      }
+    },
+    
+    /**
+     * Open search modal
+     */
+    openSearch: function() {
+      if (!elements || !elements.modal || !elements.input) return;
+      
+      elements.modal.classList.add('active');
+      elements.modal.setAttribute('aria-hidden', 'false');
+      
+      // Focus input after a brief delay to ensure modal is visible
+      setTimeout(() => {
+        if (elements.input) {
+          elements.input.focus();
+        }
+      }, 100);
+      
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    },
+    
+    /**
+     * Close search modal
+     */
+    closeSearch: function() {
+      if (!elements || !elements.modal) return;
+      
+      // Clear any pending search
+      if (this._searchTimeout) {
+        clearTimeout(this._searchTimeout);
+        this._searchTimeout = null;
+      }
+      
+      elements.modal.classList.remove('active');
+      elements.modal.setAttribute('aria-hidden', 'true');
+      
+      if (elements.input) {
+        elements.input.value = '';
+      }
+      
+      if (window.SearchUI) {
+        window.SearchUI.clearResults();
+      }
+      
+      document.body.style.overflow = ''; // Restore scrolling
+    },
+    
+    /**
+     * Handle search input and render results
+     * Uses debouncing to avoid excessive searches while typing
+     * Waits for index to load if still loading
+     */
+    handleSearch: function() {
+      // Clear any existing timeout
+      if (this._searchTimeout) {
+        clearTimeout(this._searchTimeout);
+      }
+      
+      // Debounce search to avoid excessive calls
+      this._searchTimeout = setTimeout(async () => {
+        if (!elements || !elements.input) return;
+        
+        const query = elements.input.value.trim();
+        
+        // Wait for index to load if it's still loading
+        if (searchIndex.length === 0 && indexLoadPromise) {
+          try {
+            await indexLoadPromise;
+          } catch (error) {
+            // Index load failed, show error state
+            if (window.SearchUI) {
+              const container = elements.resultsContainer;
+              if (container) {
+                container.innerHTML = '<div class="search-empty">Error loading search index. Please refresh the page.</div>';
+              }
+            }
+            return;
+          }
+        }
+        
+        // If index is still empty after waiting, something went wrong
+        if (searchIndex.length === 0) {
+          if (window.SearchUI) {
+            window.SearchUI.renderResults([], query);
+          }
+          return;
+        }
+        
+        const results = window.SearchEngine.search(searchIndex, query);
+        window.SearchUI.renderResults(results, query);
+      }, 150); // 150ms debounce
+    }
+  };
+  
+  // Auto-initialize when DOM is ready
+  function init() {
+    window.SearchController.init();
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+

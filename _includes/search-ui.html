@@ -1,0 +1,188 @@
+{% comment %}
+  Search UI Module
+  Handles DOM manipulation, rendering, and UI state management.
+  Depends on SearchEngine module.
+{% endcomment %}
+
+<script>
+(function() {
+  'use strict';
+  
+  if (!window.SearchUI) {
+    window.SearchUI = {};
+  }
+  
+  /**
+   * Search UI - DOM and rendering logic
+   */
+  window.SearchUI = {
+    // DOM element references (set during init)
+    elements: {},
+    
+    // State
+    selectedIndex: -1,
+    searchResults: [],
+    
+    /**
+     * Initialize UI with DOM element references
+     * @param {Object} elements - Object containing resultsContainer
+     */
+    init: function(elements) {
+      if (!elements || !elements.resultsContainer) {
+        console.error('SearchUI: resultsContainer element required');
+        return;
+      }
+      this.elements = elements;
+      this.selectedIndex = -1;
+      this.searchResults = [];
+    },
+    
+    /**
+     * Render search results
+     * @param {Array} results - Search results
+     * @param {string} query - Search query
+     */
+    renderResults: function(results, query) {
+      if (!window.SearchEngine) {
+        console.error('SearchUI: SearchEngine module not available');
+        return;
+      }
+      
+      const container = this.elements.resultsContainer;
+      const minQueryLength = window.SEARCH_CONFIG?.minQueryLength || 2;
+      
+      if (!query || query.length < minQueryLength) {
+        container.innerHTML = '<div class="search-empty">Type at least ' + minQueryLength + ' characters to search...</div>';
+        this._resetState();
+        return;
+      }
+      
+      if (results.length === 0) {
+        container.innerHTML = '<div class="search-empty">No results found for "' + this._escapeHtml(query) + '"</div>';
+        this._resetState();
+        return;
+      }
+      
+      // Filter out invalid posts before storing and rendering
+      const validResults = results.filter(post => {
+        if (!post || !post.title || !post.url) {
+          console.warn('SearchUI: Invalid post object filtered out', post);
+          return false;
+        }
+        return true;
+      });
+      
+      // Store only valid results for navigation
+      this.searchResults = validResults;
+      this.selectedIndex = -1;
+      
+      const html = validResults.map((post, index) => {
+        const highlightedTitle = window.SearchEngine.highlightText(post.title || '', query);
+        const highlightedExcerpt = window.SearchEngine.getHighlightedExcerpt(post, query);
+        // Escape URL for safe use in HTML attribute to prevent XSS
+        const safeUrl = window.SearchEngine.escapeHtmlAttribute(post.url || '#');
+        const safeDate = post.date ? this._escapeHtml(post.date) : '';
+        
+        return `
+          <a 
+            href="${safeUrl}" 
+            class="search-result-item"
+            data-index="${index}"
+          >
+            <div class="search-result-title">${highlightedTitle}</div>
+            <div class="search-result-meta">
+              <time>${safeDate}</time>
+            </div>
+            <div class="search-result-excerpt">${highlightedExcerpt}</div>
+          </a>
+        `;
+      }).join('');
+      
+      container.innerHTML = html;
+      this._updateSelectedItem();
+    },
+    
+    /**
+     * Navigate results with arrow keys
+     * @param {string} direction - 'up' or 'down'
+     */
+    navigateResults: function(direction) {
+      if (this.searchResults.length === 0) return;
+      
+      if (direction === 'up') {
+        this.selectedIndex = this.selectedIndex > 0 ? this.selectedIndex - 1 : this.searchResults.length - 1;
+      } else if (direction === 'down') {
+        this.selectedIndex = this.selectedIndex < this.searchResults.length - 1 ? this.selectedIndex + 1 : 0;
+      }
+      
+      this._updateSelectedItem();
+    },
+    
+    /**
+     * Open selected result
+     */
+    openSelectedResult: function() {
+      if (this.selectedIndex >= 0 && this.selectedIndex < this.searchResults.length) {
+        const post = this.searchResults[this.selectedIndex];
+        if (post && post.url) {
+          // Use proper navigation instead of direct assignment
+          const link = document.createElement('a');
+          link.href = post.url;
+          link.click();
+        }
+      }
+    },
+    
+    /**
+     * Clear results and reset state
+     */
+    clearResults: function() {
+      if (this.elements.resultsContainer) {
+        this.elements.resultsContainer.innerHTML = '';
+      }
+      this._resetState();
+    },
+    
+    /**
+     * Update selected item styling (private)
+     * @private
+     */
+    _updateSelectedItem: function() {
+      const items = this.elements.resultsContainer.querySelectorAll('.search-result-item');
+      items.forEach((item, index) => {
+        if (index === this.selectedIndex) {
+          item.classList.add('selected');
+          item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        } else {
+          item.classList.remove('selected');
+        }
+      });
+    },
+    
+    /**
+     * Reset internal state
+     * @private
+     */
+    _resetState: function() {
+      this.searchResults = [];
+      this.selectedIndex = -1;
+    },
+    
+    /**
+     * Escape HTML to prevent XSS
+     * Reuses SearchEngine's implementation for consistency
+     * @private
+     */
+    _escapeHtml: function(text) {
+      if (window.SearchEngine && window.SearchEngine.escapeHtml) {
+        return window.SearchEngine.escapeHtml(text);
+      }
+      // Fallback if SearchEngine not available
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  };
+})();
+</script>
+

@@ -1,0 +1,19 @@
+{% comment %}
+  Search Component
+  Main entry point that composes all search sub-components.
+  
+  Components:
+  - search-config.html: Configuration constants
+  - search-button.html: Search trigger button
+  - search-modal.html: Search modal UI
+  - search-engine.html: Search algorithm and text processing
+  - search-ui.html: DOM rendering and UI state
+  - search-controller.html: Event handling and orchestration
+{% endcomment %}
+
+{% include search-config.html %}
+{% include search-button.html %}
+{% include search-modal.html %}
+{% include search-engine.html %}
+{% include search-ui.html %}
+{% include search-controller.html %}

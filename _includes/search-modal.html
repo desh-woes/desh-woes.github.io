@@ -1,0 +1,35 @@
+{% comment %}
+  Search Modal Component
+  Contains the search input, results container, and footer with keyboard hints.
+{% endcomment %}
+
+<div id="search-modal" class="search-modal" role="dialog" aria-label="Search posts" aria-hidden="true">
+  <div class="search-modal-overlay" id="search-overlay"></div>
+  <div class="search-modal-content">
+    <div class="search-input-wrapper">
+      <input 
+        type="text" 
+        id="search-input" 
+        class="search-input" 
+        placeholder="Search posts..." 
+        autocomplete="off"
+        aria-label="Search input"
+      />
+      <button 
+        id="search-close" 
+        class="search-close" 
+        aria-label="Close search"
+        title="Close (Esc)"
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div id="search-results" class="search-results" role="listbox" aria-label="Search results" aria-live="polite" aria-atomic="false"></div>
+    <div class="search-footer">
+      <span class="search-hint">
+        <kbd>↑</kbd><kbd>↓</kbd> Navigate • <kbd>Enter</kbd> Select • <kbd>Esc</kbd> Close
+      </span>
+    </div>
+  </div>
+</div>
+

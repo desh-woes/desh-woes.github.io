@@ -1,0 +1,15 @@
+{% comment %}
+  Search Configuration
+  Centralized configuration for search functionality.
+  This is included in the search script to avoid duplication.
+{% endcomment %}
+
+<script>
+  window.SEARCH_CONFIG = {
+    indexUrl: '{{ "/search.json" | prepend: site.baseurl | replace: "//", "/" }}',
+    maxResults: 10,
+    minQueryLength: 2,
+    excerptContextLength: 150
+  };
+</script>
+

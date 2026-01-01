@@ -1,0 +1,207 @@
+{% comment %}
+  Search Engine Module
+  Handles search algorithm, scoring, and text processing.
+  Pure functions with no DOM dependencies.
+{% endcomment %}
+
+<script>
+(function() {
+  'use strict';
+  
+  if (!window.SearchEngine) {
+    window.SearchEngine = {};
+  }
+  
+  const config = window.SEARCH_CONFIG || {};
+  const MAX_RESULTS = config.maxResults || 10;
+  const MIN_QUERY_LENGTH = config.minQueryLength || 2;
+  
+  /**
+   * Search Engine - Pure search logic
+   */
+  window.SearchEngine = {
+    /**
+     * Perform search on index with relevance scoring
+     * @param {Array} searchIndex - Array of post objects
+     * @param {string} query - Search query
+     * @returns {Array} Sorted and filtered results
+     */
+    search: function(searchIndex, query) {
+      if (!query || query.length < MIN_QUERY_LENGTH || !searchIndex) {
+        return [];
+      }
+      
+      const lowerQuery = query.toLowerCase();
+      const queryWords = lowerQuery.split(/\s+/).filter(word => word.length > 0);
+      
+      return searchIndex
+        .map(post => this._scorePost(post, lowerQuery, queryWords))
+        .filter(result => result.matches > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, MAX_RESULTS)
+        .map(result => result.post);
+    },
+    
+    /**
+     * Score a post for relevance
+     * @private
+     */
+    _scorePost: function(post, lowerQuery, queryWords) {
+      const title = post.title.toLowerCase();
+      const content = post.content.toLowerCase();
+      
+      let score = 0;
+      let matches = 0;
+      const matchedWords = new Set(); // Track unique matched words
+      
+      // Title matches are worth more
+      queryWords.forEach(word => {
+        let wordMatched = false;
+        
+        if (title.includes(word)) {
+          score += 10;
+          wordMatched = true;
+        }
+        if (content.includes(word)) {
+          score += 1;
+          wordMatched = true;
+        }
+        
+        // Only count each word once, even if it appears in both title and content
+        if (wordMatched && !matchedWords.has(word)) {
+          matchedWords.add(word);
+          matches++;
+        }
+      });
+      
+      // Exact phrase match bonus
+      if (title.includes(lowerQuery)) score += 20;
+      if (content.includes(lowerQuery)) score += 5;
+      
+      return { post, score, matches };
+    },
+    
+    /**
+     * Highlight matching terms in text
+     * @param {string} text - Text to highlight
+     * @param {string} query - Search query
+     * @returns {string} HTML with highlighted matches
+     */
+    highlightText: function(text, query) {
+      // Always escape text for safety, even if no query
+      if (!text) return '';
+      if (!query) return this._escapeHtml(text);
+      
+      const queryWords = query.split(/\s+/).filter(word => word.length > 0);
+      if (queryWords.length === 0) return this._escapeHtml(text);
+      
+      let highlighted = this._escapeHtml(text);
+      
+      queryWords.forEach(word => {
+        const regex = new RegExp(`(${this._escapeRegex(word)})`, 'gi');
+        highlighted = highlighted.replace(regex, '<mark>$1</mark>');
+      });
+      
+      return highlighted;
+    },
+    
+    /**
+     * Get excerpt with highlighted matches around first occurrence
+     * @param {Object} post - Post object
+     * @param {string} query - Search query
+     * @returns {string} HTML excerpt with highlights
+     */
+    getHighlightedExcerpt: function(post, query) {
+      // Validate post structure
+      if (!post || typeof post !== 'object') {
+        return '';
+      }
+      
+      if (!query || !post.content) {
+        // Fallback to excerpt if available
+        return this.highlightText(post.excerpt || '', query || '');
+      }
+      
+      const content = String(post.content).toLowerCase();
+      const queryLower = String(query).toLowerCase();
+      const queryWords = queryLower.split(/\s+/).filter(word => word.length > 0);
+      const contextLength = config.excerptContextLength || 150;
+      
+      if (queryWords.length === 0) {
+        return this.highlightText(post.excerpt || '', query);
+      }
+      
+      // Find first occurrence of any query word
+      let index = -1;
+      for (const word of queryWords) {
+        const wordIndex = content.indexOf(word);
+        if (wordIndex !== -1) {
+          index = wordIndex;
+          break;
+        }
+      }
+      
+      if (index === -1) {
+        // Fallback to excerpt
+        return this.highlightText(post.excerpt || '', query);
+      }
+      
+      // Extract context around match
+      const start = Math.max(0, index - contextLength);
+      const end = Math.min(post.content.length, index + query.length + contextLength);
+      let excerpt = String(post.content).substring(start, end);
+      
+      // Add ellipsis if needed
+      if (start > 0) excerpt = '...' + excerpt;
+      if (end < post.content.length) excerpt = excerpt + '...';
+      
+      return this.highlightText(excerpt, query);
+    },
+    
+    /**
+     * Escape HTML to prevent XSS
+     * Public method so SearchUI can reuse it
+     * @param {string} text - Text to escape
+     * @returns {string} Escaped HTML
+     */
+    escapeHtml: function(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    },
+    
+    /**
+     * Escape HTML to prevent XSS (private alias for internal use)
+     * @private
+     */
+    _escapeHtml: function(text) {
+      return this.escapeHtml(text);
+    },
+    
+    /**
+     * Escape special regex characters
+     * @private
+     */
+    _escapeRegex: function(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    },
+    
+    /**
+     * Escape HTML attribute value to prevent XSS
+     * Specifically for URLs in href attributes
+     * @param {string} url - URL to escape
+     * @returns {string} Escaped URL safe for HTML attributes
+     */
+    escapeHtmlAttribute: function(url) {
+      if (!url) return '';
+      return String(url)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+  };
+})();
+</script>
+
