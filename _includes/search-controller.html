@@ -62,7 +62,7 @@
       if (elements) return elements;
       
       return {
-        toggle: document.getElementById('search-toggle'),
+        toggles: document.querySelectorAll('.search-toggle'), // Get all search buttons
         modal: document.getElementById('search-modal'),
         overlay: document.getElementById('search-overlay'),
         input: document.getElementById('search-input'),
@@ -76,7 +76,7 @@
      * @private
      */
     _validateElements: function(elements) {
-      return elements.toggle && elements.modal && elements.overlay && 
+      return elements.toggles && elements.toggles.length > 0 && elements.modal && elements.overlay && 
              elements.input && elements.close && elements.resultsContainer;
     },
     
@@ -121,8 +121,11 @@
      * @private
      */
     _setupEventListeners: function() {
-      // Button and modal controls
-      elements.toggle.addEventListener('click', () => this.openSearch());
+      // Attach click listeners to all search toggle buttons (desktop and mobile)
+      elements.toggles.forEach(toggle => {
+        toggle.addEventListener('click', () => this.openSearch());
+      });
+      
       elements.overlay.addEventListener('click', () => this.closeSearch());
       elements.close.addEventListener('click', () => this.closeSearch());
       
@@ -185,6 +188,18 @@
      */
     openSearch: function() {
       if (!elements || !elements.modal || !elements.input) return;
+      
+      // Close mobile menu if it's open
+      const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenuToggle && mobileMenu) {
+        const isMenuOpen = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+        if (isMenuOpen) {
+          mobileMenuToggle.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = ''; // Restore scrolling from mobile menu
+        }
+      }
       
       elements.modal.classList.add('active');
       elements.modal.setAttribute('aria-hidden', 'false');
