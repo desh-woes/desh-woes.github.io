@@ -10,6 +10,141 @@
   
   {% include features/blog-config.html %}
   
+  <!-- Hide body until theme is applied to prevent flash -->
+  <style id="theme-preload-style">
+    body { visibility: hidden; }
+  </style>
+  
+  <!-- Apply theme immediately to prevent flash of unstyled content -->
+  <script>
+  (function() {
+    'use strict';
+    // Get theme from localStorage synchronously (before page renders)
+    var theme = null;
+    var hasStoredPreference = false;
+    try {
+      var storedTheme = localStorage.getItem('blog-theme');
+      if (storedTheme === 'modern' || storedTheme === 'hacker') {
+        theme = storedTheme;
+        hasStoredPreference = true;
+      }
+    } catch (e) {
+      // localStorage not available
+    }
+    
+    // Check if we're on the welcome page
+    var isWelcomePage = false;
+    try {
+      var pathname = window.location.pathname;
+      isWelcomePage = pathname === '/welcome.html' || 
+                      pathname === '/welcome' ||
+                      pathname.endsWith('/welcome.html');
+    } catch (e) {
+      // Can't determine, assume not welcome page
+    }
+    
+    // Determine which theme to apply
+    var themeToApply = null;
+    if (hasStoredPreference) {
+      // Always apply stored preference if it exists
+      themeToApply = theme;
+    } else if (!isWelcomePage) {
+      // For non-welcome pages, apply default theme (hacker) if no preference
+      // Welcome page keeps its hardcoded theme-modern for first-time visitors
+      themeToApply = 'hacker';
+    }
+    
+    // Safety fallback: ensure body is always shown, even if theme application fails
+    var safetyTimeout = setTimeout(function() {
+      var preloadStyle = document.getElementById('theme-preload-style');
+      if (preloadStyle) {
+        preloadStyle.remove();
+      }
+      if (document.body) {
+        document.body.style.visibility = '';
+        // Still try to apply theme if we have one
+        if (themeToApply) {
+          document.body.classList.remove('theme-modern', 'theme-hacker');
+          document.body.classList.add('theme-' + themeToApply);
+        }
+      }
+    }, 100); // Max 100ms delay before showing content
+    
+    // Function to apply theme and show body
+    function applyThemeAndShow() {
+      var body = document.body;
+      if (!body) {
+        // Body not ready yet - try multiple strategies
+        // Strategy 1: MutationObserver (modern browsers)
+        if (document.documentElement && window.MutationObserver) {
+          var observer = new MutationObserver(function() {
+            var body = document.body;
+            if (body) {
+              observer.disconnect();
+              applyThemeAndShow();
+            }
+          });
+          observer.observe(document.documentElement, { 
+            childList: true, 
+            subtree: true 
+          });
+        }
+        
+        // Strategy 2: Polling with requestAnimationFrame (faster than setTimeout)
+        if (typeof requestAnimationFrame !== 'undefined') {
+          requestAnimationFrame(applyThemeAndShow);
+        } else {
+          // Strategy 3: Fallback to setTimeout
+          setTimeout(applyThemeAndShow, 0);
+        }
+        return;
+      }
+      
+      // Clear safety timeout since we're applying theme now
+      clearTimeout(safetyTimeout);
+      
+      // Body exists - apply theme class immediately
+      if (themeToApply) {
+        body.classList.remove('theme-modern', 'theme-hacker');
+        body.classList.add('theme-' + themeToApply);
+      }
+      
+      // Remove the hiding style and show body synchronously
+      var preloadStyle = document.getElementById('theme-preload-style');
+      if (preloadStyle) {
+        preloadStyle.remove();
+      }
+      
+      // Ensure body is visible (remove any inline hiding)
+      body.style.visibility = '';
+    }
+    
+    // Start applying theme immediately - try right away
+    applyThemeAndShow();
+    
+    // Also listen for DOMContentLoaded as additional fallback
+    if (document.readyState === 'loading') {
+      var domContentLoadedHandler = function() {
+        clearTimeout(safetyTimeout);
+        var preloadStyle = document.getElementById('theme-preload-style');
+        if (preloadStyle) {
+          preloadStyle.remove();
+        }
+        if (document.body) {
+          document.body.style.visibility = '';
+          if (themeToApply) {
+            document.body.classList.remove('theme-modern', 'theme-hacker');
+            document.body.classList.add('theme-' + themeToApply);
+          }
+        }
+        // Remove listener after first call (manual once: true for compatibility)
+        document.removeEventListener('DOMContentLoaded', domContentLoadedHandler);
+      };
+      document.addEventListener('DOMContentLoaded', domContentLoadedHandler);
+    }
+  })();
+  </script>
+  
   <!-- Set favicon immediately based on stored theme preference -->
   <script>
   (function() {
