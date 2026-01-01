@@ -58,7 +58,7 @@
       }
       
       if (results.length === 0) {
-        container.innerHTML = '<div class="search-empty">No results found for "' + this._escapeHtml(query) + '"</div>';
+        container.innerHTML = '<div class="search-empty">No results found for "' + window.SearchEngine.escapeHtml(query) + '"</div>';
         this._resetState();
         return;
       }
@@ -81,7 +81,7 @@
         const highlightedExcerpt = window.SearchEngine.getHighlightedExcerpt(post, query);
         // Escape URL for safe use in HTML attribute to prevent XSS
         const safeUrl = window.SearchEngine.escapeHtmlAttribute(post.url || '#');
-        const safeDate = post.date ? this._escapeHtml(post.date) : '';
+        const safeDate = post.date ? window.SearchEngine.escapeHtml(post.date) : '';
         
         return `
           <a 
@@ -166,21 +166,6 @@
     _resetState: function() {
       this.searchResults = [];
       this.selectedIndex = -1;
-    },
-    
-    /**
-     * Escape HTML to prevent XSS
-     * Reuses SearchEngine's implementation for consistency
-     * @private
-     */
-    _escapeHtml: function(text) {
-      if (window.SearchEngine && window.SearchEngine.escapeHtml) {
-        return window.SearchEngine.escapeHtml(text);
-      }
-      // Fallback if SearchEngine not available
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
     }
   };
 })();

@@ -57,3 +57,24 @@
   align-items: center;
 }
 
+/**
+ * Hacker theme base element styles
+ * Common pattern: border-radius 0, hacker font
+ */
+@mixin hacker-base {
+  border-radius: 0;
+  font-family: $hacker-font;
+}
+
+/**
+ * Hacker theme hover effect
+ * Common pattern for green hover effects
+ */
+@mixin hacker-hover-green {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: $hacker-green;
+  color: $hacker-green;
+  text-shadow: 0 0 5px rgba($hacker-green, 0.5);
+  box-shadow: 0 2px 8px rgba($hacker-green, 0.2);
+}
+

@@ -57,6 +57,9 @@
       }
     }
     
+    // Expose closeMenu function globally for other scripts to use
+    window.closeMobileMenu = closeMenu;
+    
     // Toggle menu on button click
     menuToggle.addEventListener('click', toggleMenu);
     

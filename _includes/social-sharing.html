@@ -69,24 +69,23 @@
 </div>
 
 <script>
+function showCopyFeedback(btn) {
+  if (!btn) return;
+  const originalText = btn.querySelector('.social-share-text').textContent;
+  btn.querySelector('.social-share-text').textContent = 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(function() {
+    btn.querySelector('.social-share-text').textContent = originalText;
+    btn.classList.remove('copied');
+  }, 2000);
+}
+
 function copyToClipboard(text, event) {
   const btn = event ? event.target.closest('.social-share-copy') : null;
   
-  function showFeedback() {
-    if (btn) {
-      const originalText = btn.querySelector('.social-share-text').textContent;
-      btn.querySelector('.social-share-text').textContent = 'Copied!';
-      btn.classList.add('copied');
-      setTimeout(function() {
-        btn.querySelector('.social-share-text').textContent = originalText;
-        btn.classList.remove('copied');
-      }, 2000);
-    }
-  }
-  
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(function() {
-      showFeedback();
+      showCopyFeedback(btn);
     }).catch(function(err) {
       console.error('Failed to copy: ', err);
       fallbackCopyToClipboard(text, btn);
@@ -107,15 +106,7 @@ function fallbackCopyToClipboard(text, btn) {
   textArea.select();
   try {
     document.execCommand('copy');
-    if (btn) {
-      const originalText = btn.querySelector('.social-share-text').textContent;
-      btn.querySelector('.social-share-text').textContent = 'Copied!';
-      btn.classList.add('copied');
-      setTimeout(function() {
-        btn.querySelector('.social-share-text').textContent = originalText;
-        btn.classList.remove('copied');
-      }, 2000);
-    }
+    showCopyFeedback(btn);
   } catch (err) {
     console.error('Fallback copy failed: ', err);
   }

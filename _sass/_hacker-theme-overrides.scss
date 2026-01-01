@@ -9,6 +9,7 @@
  */
 
 @import "hacker-theme-variables";
+@import "mixins";
 
 /* Social sharing buttons */
 body.theme-hacker {
@@ -25,18 +26,13 @@ body.theme-hacker {
   .social-share-btn {
     background: transparent;
     border: 1px dashed $hacker-border;
-    border-radius: 0;
+    @include hacker-base;
     color: $hacker-text;
     font-weight: normal;
-    font-family: $hacker-font;
   }
 
   .social-share-btn:hover {
-    background: rgba(0, 0, 0, 0.5);
-    border-color: $hacker-green;
-    color: $hacker-green;
-    text-shadow: 0 0 5px rgba($hacker-green, 0.5);
-    box-shadow: 0 2px 8px rgba($hacker-green, 0.2);
+    @include hacker-hover-green;
   }
 
   .social-share-btn.copied {
@@ -113,9 +109,8 @@ body.theme-hacker {
   .subscription-input {
     background: rgba(0, 0, 0, 0.5);
     border: 1px dashed $hacker-border;
-    border-radius: 0;
+    @include hacker-base;
     color: $hacker-text;
-    font-family: $hacker-font;
     box-shadow: none;
   }
 
@@ -138,19 +133,14 @@ body.theme-hacker {
   .subscription-button {
     background: transparent;
     border: 1px dashed $hacker-border;
-    border-radius: 0;
+    @include hacker-base;
     color: $hacker-text;
     font-weight: normal;
-    font-family: $hacker-font;
     box-shadow: none;
   }
 
   .subscription-button:hover:not(:disabled) {
-    background: rgba(0, 0, 0, 0.5);
-    border-color: $hacker-green;
-    color: $hacker-green;
-    text-shadow: 0 0 5px rgba($hacker-green, 0.5);
-    box-shadow: 0 2px 8px rgba($hacker-green, 0.2);
+    @include hacker-hover-green;
     transform: none;
   }
 
@@ -160,8 +150,7 @@ body.theme-hacker {
   }
 
   .subscription-message {
-    border-radius: 0;
-    font-family: $hacker-font;
+    @include hacker-base;
   }
 
   .subscription-message-success {
@@ -179,16 +168,8 @@ body.theme-hacker {
   }
 
   @media (max-width: 768px) {
-    .subscription-input {
-      border-radius: 0;
-    }
-
     .subscription-input:focus {
       box-shadow: 0 0 5px rgba($hacker-green, 0.3);
-    }
-
-    .subscription-button {
-      border-radius: 0;
     }
 
     .subscription-button:active:not(:disabled) {
@@ -203,10 +184,9 @@ body.theme-hacker {
   .back-to-top {
     background: rgba(0, 0, 0, 0.8);
     border: 1px dashed $hacker-border;
-    border-radius: 0;
+    @include hacker-base;
     color: $hacker-green;
     box-shadow: 0 0 10px rgba($hacker-green, 0.3);
-    font-family: $hacker-font;
     
     &:hover {
       background: rgba(0, 0, 0, 0.9);
@@ -220,7 +200,7 @@ body.theme-hacker {
   .music-stats li {
     background: rgba(0, 0, 0, 0.5);
     border: 1px dashed $hacker-border;
-    border-radius: 0;
+    @include hacker-base;
     padding-left: 4rem; /* Extra space for "> " bullet */
     
     &::before {
@@ -247,17 +227,12 @@ body.theme-hacker {
   .music-playlist-link {
     background: transparent;
     border: 1px dashed $hacker-border;
-    border-radius: 0;
+    @include hacker-base;
     color: $hacker-text;
     box-shadow: none;
-    font-family: $hacker-font;
     
     &:hover {
-      background: rgba(0, 0, 0, 0.5);
-      border-color: $hacker-green;
-      color: $hacker-green;
-      text-shadow: 0 0 5px rgba($hacker-green, 0.5);
-      box-shadow: 0 2px 8px rgba($hacker-green, 0.2);
+      @include hacker-hover-green;
       transform: none;
     }
   }
@@ -265,9 +240,8 @@ body.theme-hacker {
   .music-listen-count {
     background: rgba(0, 0, 0, 0.5);
     border: 1px dashed $hacker-border;
-    border-radius: 0;
+    @include hacker-base;
     color: $accent-green;
-    font-family: $hacker-font;
     
     &::before {
       content: "▶ ";
@@ -281,9 +255,8 @@ body.theme-hacker {
     font-style: normal;
     background: rgba($hacker-green, 0.1);
     padding: 0.15rem 0.4rem;
-    border-radius: 0;
+    @include hacker-base;
     border: 1px dashed $hacker-green;
-    font-family: $hacker-font;
     
     &:hover {
       background: rgba($hacker-green, 0.2);
@@ -295,8 +268,7 @@ body.theme-hacker {
   .search-toggle {
     border-color: $hacker-text-muted;
     color: $hacker-text-muted;
-    font-family: $hacker-font;
-    border-radius: 0;
+    @include hacker-base;
     font-weight: normal;
   }
 
@@ -318,9 +290,8 @@ body.theme-hacker {
   .search-shortcut {
     background: rgba(0, 0, 0, 0.3);
     border: 1px dashed $hacker-border;
-    border-radius: 0;
+    @include hacker-base;
     color: $hacker-text-muted;
-    font-family: $hacker-font;
     box-shadow: none;
   }
 
@@ -332,7 +303,7 @@ body.theme-hacker {
   .search-modal-content {
     background: rgba(0, 0, 0, 0.95);
     border: 1px dashed $hacker-green;
-    border-radius: 0;
+    @include hacker-base;
     box-shadow: 0 0 20px rgba($hacker-green, 0.3);
   }
 
@@ -343,9 +314,8 @@ body.theme-hacker {
   .search-input {
     background: rgba(0, 0, 0, 0.5);
     border: 1px dashed $hacker-border;
-    border-radius: 0;
+    @include hacker-base;
     color: $hacker-text;
-    font-family: $hacker-font;
     box-shadow: none;
   }
 
@@ -362,7 +332,7 @@ body.theme-hacker {
 
   .search-close {
     color: $hacker-text-muted;
-    border-radius: 0;
+    @include hacker-base;
   }
 
   .search-close:hover {
@@ -373,7 +343,7 @@ body.theme-hacker {
 
   .search-result-item {
     border: 1px dashed transparent;
-    border-radius: 0;
+    @include hacker-base;
   }
 
   .search-result-item:hover,
@@ -431,9 +401,8 @@ body.theme-hacker {
   .search-hint kbd {
     background: rgba(0, 0, 0, 0.5);
     border: 1px dashed $hacker-border;
-    border-radius: 0;
+    @include hacker-base;
     color: $hacker-text;
-    font-family: $hacker-font;
     box-shadow: none;
   }
 }

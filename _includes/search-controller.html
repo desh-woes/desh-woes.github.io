@@ -190,15 +190,8 @@
       if (!elements || !elements.modal || !elements.input) return;
       
       // Close mobile menu if it's open
-      const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      if (mobileMenuToggle && mobileMenu) {
-        const isMenuOpen = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-        if (isMenuOpen) {
-          mobileMenuToggle.setAttribute('aria-expanded', 'false');
-          mobileMenu.setAttribute('aria-hidden', 'true');
-          document.body.style.overflow = ''; // Restore scrolling from mobile menu
-        }
+      if (window.closeMobileMenu) {
+        window.closeMobileMenu();
       }
       
       elements.modal.classList.add('active');

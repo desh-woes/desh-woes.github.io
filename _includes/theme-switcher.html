@@ -29,34 +29,20 @@
 
   function applyTheme(theme) {
     const body = document.body;
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
     
     if (theme === THEME_HACKER) {
       body.classList.add('theme-hacker');
       body.classList.remove('theme-modern');
       const title = 'Switch to modern theme';
-      setToggleAttributes(themeToggle, title);
-      setToggleAttributes(themeToggleMobile, title);
+      themeToggles.forEach(toggle => setToggleAttributes(toggle, title));
     } else {
       body.classList.add('theme-modern');
       body.classList.remove('theme-hacker');
       const title = 'Switch to hacker theme';
-      setToggleAttributes(themeToggle, title);
-      setToggleAttributes(themeToggleMobile, title);
+      themeToggles.forEach(toggle => setToggleAttributes(toggle, title));
     }
     setStoredTheme(theme);
-  }
-
-  function closeMobileMenu() {
-    const menuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (menuToggle && mobileMenu) {
-      menuToggle.setAttribute('aria-expanded', 'false');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
   }
 
   function toggleTheme(event) {
@@ -68,7 +54,9 @@
     
     // Close mobile menu if theme was toggled from mobile button
     if (event && event.target && event.target.closest('#theme-toggle-mobile')) {
-      closeMobileMenu();
+      if (window.closeMobileMenu) {
+        window.closeMobileMenu();
+      }
     }
   }
 
@@ -77,17 +65,11 @@
     const storedTheme = getStoredTheme();
     applyTheme(storedTheme);
 
-    // Add click handler to theme toggle buttons (desktop and mobile)
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-    
-    if (themeToggle) {
-      themeToggle.addEventListener('click', toggleTheme);
-    }
-    
-    if (themeToggleMobile) {
-      themeToggleMobile.addEventListener('click', toggleTheme);
-    }
+    // Add click handler to all theme toggle buttons
+    const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+    themeToggles.forEach(toggle => {
+      toggle.addEventListener('click', toggleTheme);
+    });
   });
 })();
 </script>
