@@ -20,6 +20,13 @@
     }
   }
 
+  function setToggleAttributes(toggle, title) {
+    if (toggle) {
+      toggle.setAttribute('title', title);
+      toggle.setAttribute('aria-label', title);
+    }
+  }
+
   function applyTheme(theme) {
     const body = document.body;
     const themeToggle = document.getElementById('theme-toggle');
@@ -29,26 +36,14 @@
       body.classList.add('theme-hacker');
       body.classList.remove('theme-modern');
       const title = 'Switch to modern theme';
-      if (themeToggle) {
-        themeToggle.setAttribute('title', title);
-        themeToggle.setAttribute('aria-label', title);
-      }
-      if (themeToggleMobile) {
-        themeToggleMobile.setAttribute('title', title);
-        themeToggleMobile.setAttribute('aria-label', title);
-      }
+      setToggleAttributes(themeToggle, title);
+      setToggleAttributes(themeToggleMobile, title);
     } else {
       body.classList.add('theme-modern');
       body.classList.remove('theme-hacker');
       const title = 'Switch to hacker theme';
-      if (themeToggle) {
-        themeToggle.setAttribute('title', title);
-        themeToggle.setAttribute('aria-label', title);
-      }
-      if (themeToggleMobile) {
-        themeToggleMobile.setAttribute('title', title);
-        themeToggleMobile.setAttribute('aria-label', title);
-      }
+      setToggleAttributes(themeToggle, title);
+      setToggleAttributes(themeToggleMobile, title);
     }
     setStoredTheme(theme);
   }

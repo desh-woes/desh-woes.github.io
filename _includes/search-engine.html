@@ -90,12 +90,12 @@
     highlightText: function(text, query) {
       // Always escape text for safety, even if no query
       if (!text) return '';
-      if (!query) return this._escapeHtml(text);
+      if (!query) return this.escapeHtml(text);
       
       const queryWords = query.split(/\s+/).filter(word => word.length > 0);
-      if (queryWords.length === 0) return this._escapeHtml(text);
+      if (queryWords.length === 0) return this.escapeHtml(text);
       
-      let highlighted = this._escapeHtml(text);
+      let highlighted = this.escapeHtml(text);
       
       queryWords.forEach(word => {
         const regex = new RegExp(`(${this._escapeRegex(word)})`, 'gi');
@@ -168,14 +168,6 @@
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
-    },
-    
-    /**
-     * Escape HTML to prevent XSS (private alias for internal use)
-     * @private
-     */
-    _escapeHtml: function(text) {
-      return this.escapeHtml(text);
     },
     
     /**
