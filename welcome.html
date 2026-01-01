@@ -1,20 +1,14 @@
 ---
 layout: null
+title: Welcome
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <meta name="generator" content="Jekyll">
-  <title>Welcome - Desh-woes</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🍁</text></svg>">
-  <link rel="stylesheet" href="/css/main.css">
-  {% include features/blog-config.html %}
-  {% include features/theme-manager.html %}
-  {% include features/preferences.html %}
-</head>
+{% include layout/head.html %}
+{% include features/blog-config.html %}
+{% include features/theme-manager.html %}
+{% include features/preferences.html %}
 <body class="theme-modern">
   <div class="welcome-container">
     <div class="welcome-card">
@@ -83,29 +77,20 @@ layout: null
       };
       
       // Storage layer - handles saving preferences
+      // Uses ThemeManager and BlogPreferences modules (no duplication)
       const WelcomeStorage = {
         save: function(data) {
           if (!data) return false;
           
           try {
-            if (window.ThemeManager) {
-              window.ThemeManager.setTheme(data.theme);
-            } else if (window.BlogConfig) {
-              localStorage.setItem(window.BlogConfig.STORAGE_KEYS.THEME, data.theme);
-            } else {
-              localStorage.setItem('blog-theme', data.theme);
+            if (!window.ThemeManager || !window.BlogPreferences) {
+              console.error('Required modules (ThemeManager, BlogPreferences) not loaded');
+              return false;
             }
             
-            if (window.BlogPreferences) {
-              window.BlogPreferences.setOrder(data.order);
-              window.BlogPreferences.markPreferencesSet();
-            } else if (window.BlogConfig) {
-              localStorage.setItem(window.BlogConfig.STORAGE_KEYS.ORDER, data.order);
-              localStorage.setItem(window.BlogConfig.STORAGE_KEYS.PREFERENCES_SET, 'true');
-            } else {
-              localStorage.setItem('blog-order', data.order);
-              localStorage.setItem('blog-preferences-set', 'true');
-            }
+            window.ThemeManager.setTheme(data.theme);
+            window.BlogPreferences.setOrder(data.order);
+            window.BlogPreferences.markPreferencesSet();
             return true;
           } catch (error) {
             console.error('Error saving preferences:', error);
