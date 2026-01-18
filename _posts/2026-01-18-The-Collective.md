@@ -14,3 +14,9 @@ If you're early, you might feel alone. Truly. It's worth acknowledging the quiet
 When you're late, it becomes more important to understand the conditions that created the early adopters' conviction. You aren't just looking at the trend; you are reverse-engineering the signal. Being late is an exercise in humility. It requires you to look back at the "silence" you missed and ask what was vibrating in the air before the roar began.
 
 Whether you arrive early to find the advantage or late to find the lesson, the destination is the same. This is deeply comforting, because what is true is simply ***true***. That's enough for me.
+
+---
+
+*This post was inspired by intentional listens to this tune:*
+
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4WkTn19oaQHdc1loRbQAto?utm_source=generator" class="is-fullwidth" width="100%" height="250" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
